@@ -67,6 +67,7 @@ include 'db.php';
                 </div>
             </div>
             <button type="submit" id="client-submit" class="btn btn-primary">Submit</button>
+            <h1>Abubakar</h1>
         </form>
         <div id="response" class="my-2"></div>
 
