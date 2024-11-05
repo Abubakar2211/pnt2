@@ -36,12 +36,12 @@ include 'db.php';
                     <input type="Number" class="form-control" id="contact" placeholder="Enter contact" name="contact">
                 </div>
                 <div class="mb-3 col-md-4 ">
-                    <label for="sellPhone" class="form-label">Sell Phone</label>
-                    <input type="Number" class="form-control" id="sellPhone" placeholder="Enter sellPhone" name="sellPhone">
+                    <label for="cellPhone" class="form-label">Cell Phone</label>
+                    <input type="Number" class="form-control" id="cellPhone" placeholder="Enter Cell Phone" name="cellPhone">
                 </div>
                 <div class="mb-3 col-md-4 ">
-                    <label for="sellNumber" class="form-label">Sell Number</label>
-                    <input type="Number" class="form-control" id="sellNumber" placeholder="Enter sellNumber" name="sellNumber">
+                    <label for="cellNumber" class="form-label">Cell Number</label>
+                    <input type="Number" class="form-control" id="cellNumber" placeholder="Enter Cell Number" name="cellNumber">
                 </div>
                 <div class="mb-3 col-md-4 ">
                     <label for="joining" class="form-label">Joining</label>
@@ -67,7 +67,6 @@ include 'db.php';
                 </div>
             </div>
             <button type="submit" id="client-submit" class="btn btn-primary">Submit</button>
-            <h1>Abubakar</h1>
         </form>
         <div id="response" class="my-2"></div>
 
@@ -115,7 +114,7 @@ include 'db.php';
 
         function loadTable() {
             $.ajax({
-                url: "client-load.php",
+                url: "clients-load.php",
                 type: "POST",
                 success: function(data) {
                     $('#client-table').html(data);
@@ -130,19 +129,19 @@ include 'db.php';
             var name = $("#name").val();
             var email = $("#email").val();
             var contact = $("#contact").val();
-            var sellPhone = $("#sellPhone").val();
-            var sellNumber = $("#sellNumber").val();
+            var cellPhone = $("#cellPhone").val();
+            var cellNumber = $("#cellNumber").val();
             var joining = $("#joining").val();
             var companyName = $("#companyName").val();
             var clientStatus = $("#clientStatus").val();
             var clientBoardcast = $("#clientBoardcast").val();
 
-            if (name == "" || email == "" || contact == "" || sellPhone == "" || sellNumber == "" || joining == "" || companyName == "" || clientStatus == "" || clientBoardcast == "") {
+            if (name == "" || email == "" || contact == "" || cellPhone == "" || cellNumber == "" || joining == "" || companyName == "" || clientStatus == "" || clientBoardcast == "") {
                 $('#response').fadeIn();
                 $('#response').removeClass('alert alert-primary').addClass('alert alert-danger').html('All fields are required');
             } else {
                 $.ajax({
-                    url: "client-insert.php",
+                    url: "clients-insert.php",
                     type: "POST",
                     data: $('#client-form').serialize(),
                     success: function(data) {
@@ -168,7 +167,7 @@ include 'db.php';
                 var clientId = $(this).data('id');
                 var element = this;
                 $.ajax({
-                    url: "client-delete.php",
+                    url: "clients-delete.php",
                     type: "POST",
                     data: {
                         id: clientId
@@ -192,7 +191,7 @@ include 'db.php';
             $("#update-modal").modal('show');
 
             $.ajax({
-                url: "client-update-form.php",
+                url: "clients-update-form.php",
                 type: "POST",
                 data: {
                     id: clientId
@@ -208,7 +207,7 @@ include 'db.php';
             var formData = $('#update-form').serialize();
 
             $.ajax({
-                url: "client-update.php",
+                url: "clients-update.php",
                 type: "POST",
                 data: formData,
                 success: function(data) {

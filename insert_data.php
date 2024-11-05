@@ -51,7 +51,7 @@ session_unset();
 session_destroy(); // Destroy the session
 
 // Redirect based on form type
-$redirectUrl = $formType === 'client' ? 'client.php' : 'add-contacts.php';
+$redirectUrl = $formType === 'client' ? 'clients.php' : 'add-contacts.php';
 header("Location: $redirectUrl");
 exit;
 

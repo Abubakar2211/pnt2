@@ -21,10 +21,10 @@ if (mysqli_num_rows($query) > 0) {
             <input type='email' class='form-control mb-2' name='email' id='email' value='{$row['email']}' required>
             <label for='contact' class='form-label'>Contact</label>
             <input type='text' class='form-control mb-2' name='contact' id='contact' value='{$row['contact']}' required>
-            <label for='sellPhone' class='form-label'>Sell Phone</label>
-            <input type='number' class='form-control' name='sellPhone' id='sellPhone' value='{$row['sellPhone']}' required>
-            <label for='sellNumber' class='form-label'>Sell Number</label>
-            <input type='number' class='form-control' name='sellNumber' id='sellNumber' value='{$row['sellNumber']}' required>
+            <label for='cellPhone' class='form-label'>Cell Phone</label>
+            <input type='number' class='form-control' name='cellPhone' id='cellPhone' value='{$row['cellPhone']}' required>
+            <label for='cellNumber' class='form-label'>Cell Number</label>
+            <input type='number' class='form-control' name='cellNumber' id='cellNumber' value='{$row['cellNumber']}' required>
             <label for='joining' class='form-label'>Joining</label>
             <input type='date' class='form-control' name='joining' id='joining' value='{$row['joining']}' required>
             <label for='companyName' class='form-label'>Company Name</label>

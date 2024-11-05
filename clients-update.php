@@ -5,8 +5,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $name = mysqli_real_escape_string($con, $_POST['name']);
     $email = mysqli_real_escape_string($con, $_POST['email']);
     $contact = mysqli_real_escape_string($con, $_POST['contact']);
-    $sellPhone = mysqli_real_escape_string($con, $_POST['sellPhone']);
-    $sellNumber = mysqli_real_escape_string($con, $_POST['sellNumber']);
+    $cellPhone = mysqli_real_escape_string($con, $_POST['cellPhone']);
+    $cellNumber = mysqli_real_escape_string($con, $_POST['cellNumber']);
     $joining = mysqli_real_escape_string($con, $_POST['joining']);
     $companyName = mysqli_real_escape_string($con, $_POST['companyName']);
     $clientStatus = mysqli_real_escape_string($con, $_POST['clientStatus']);
@@ -16,8 +16,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         name = '{$name}', 
         email = '{$email}', 
         contact = '{$contact}', 
-        sellPhone = '{$sellPhone}', 
-        sellNumber = '{$sellNumber}', 
+        cellPhone = '{$cellPhone}', 
+        cellNumber = '{$cellNumber}', 
         joining = '{$joining}', 
         companyName = '{$companyName}', 
         clientStatus = '{$clientStatus}', 

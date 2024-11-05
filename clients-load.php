@@ -35,8 +35,8 @@ if (mysqli_num_rows($result) > 0) {
         <td>" . htmlspecialchars($row['name']) . "</td>
         <td>" . htmlspecialchars($row['email']) . "</td>
         <td>" . htmlspecialchars($row['contact']) . "</td>
-        <td>" . htmlspecialchars($row['sellPhone']) . "</td>
-        <td>" . htmlspecialchars($row['sellNumber']) . "</td>
+        <td>" . htmlspecialchars($row['cellPhone']) . "</td>
+        <td>" . htmlspecialchars($row['cellNumber']) . "</td>
         <td>" . htmlspecialchars($row['joining']) . "</td>
         <td>" . htmlspecialchars($row['companyName']) . "</td>
         <td>" . htmlspecialchars($row['clientStatus']) . "</td>
