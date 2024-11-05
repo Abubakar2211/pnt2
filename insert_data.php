@@ -4,14 +4,14 @@ include 'db.php'; // Database connection
 
 $csvData = $_SESSION['csv_data'] ?? [];
 $mapping = $_POST['mapping'] ?? [];
-$formType = $_SESSION['form_type'] ?? 'contact';
+$formType = $_SESSION['form_type'] ?? 'add_contact';
 
 if (empty($csvData) || empty($mapping)) {
     echo "No data to insert.";
     exit;
 }
 
-$tableName = $formType === 'client' ? 'clients' : 'contacts'; // Choose the correct table based on form type
+$tableName = $formType === 'client' ? 'clients' : 'add_contacts'; // Choose the correct table based on form type
 
 foreach ($csvData as $index => $row) {
     $insertData = [];

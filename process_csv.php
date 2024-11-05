@@ -26,7 +26,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_FILES["csv_file"])) {
     }
 
     // Redirect to the appropriate mapping page based on the form type
-    $formType = $_SESSION['form_type'] ?? 'contact'; // Default to contact
+    $formType = $_SESSION['form_type'] ?? 'add_contact'; // Default to contact
     header("Location: display.php?formType=$formType");
     exit;
 }

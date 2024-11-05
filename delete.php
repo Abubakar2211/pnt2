@@ -5,7 +5,7 @@ if (isset($_GET['id'])) {
     $contactId = $_GET['id'];
 
     // Perform deletion
-    $query = "DELETE FROM contacts WHERE id = '$contactId'";
+    $query = "DELETE FROM add_contacts WHERE id = '$contactId'";
     $result = mysqli_query($con, $query);
 
     if ($result) {

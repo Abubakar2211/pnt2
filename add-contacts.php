@@ -1,6 +1,6 @@
 <?php
 session_start();
-$_SESSION['form_type'] = 'contact'; // Set session variable for contact
+$_SESSION['form_type'] = 'add_contact'; // Set session variable for contact
 include 'header.php';
 include 'db.php'; 
 ?>
@@ -34,6 +34,7 @@ include 'db.php';
         <table id="contactsTable" class="table table-striped table-bordered">
             <thead>
                 <tr>
+                    <th>S.No</th>
                     <th>Name</th>
                     <th>Email</th>
                     <th>Category</th>
@@ -45,17 +46,20 @@ include 'db.php';
                 <?php
 
                 // Fetch records from the database
-                $query = "SELECT * FROM `contacts`";
+                $query = "SELECT * FROM `add_contacts`";
                 // print_r($query); exit();
                 $result = mysqli_query($con, $query);
                 $c = mysqli_num_rows($result);
                 // Check if there are any records
+                $i = 1;
+
                 if ($c > 0) {
                     // echo "hh";
                     // $contactss = mysqli_fetch_assoc($result);
                     while ($contacts = mysqli_fetch_assoc($result)) {
                 ?>
                         <tr>
+                            <td><?= $i ?></td>
                             <td><?= !empty($contacts['lastName']) ? $contacts['firstName'] . ' ' . $contacts['lastName'] : $contacts['firstName'] ?></td>
                             <td><?= $contacts['Email'] ?></td>
                             <td><?= $contacts['category'] ?></td>
@@ -68,6 +72,7 @@ include 'db.php';
                                     <i class='fa-solid fa-delete-left'></i>
                                 </button>
                             </td>
+                            <?= $i++ ?>
                         </tr>
                 <?php }
                 } else {

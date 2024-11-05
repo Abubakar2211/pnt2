@@ -3,7 +3,7 @@ session_start();
 include 'header.php';
 
 $csvData = $_SESSION['csv_data'] ?? [];
-$formType = $_GET['formType'] ?? 'contact'; // Determine the form type
+$formType = $_GET['formType'] ?? 'add_contact'; // Determine the form type
 $fields = ($formType === 'client') ? 
     ['Name', 'Email', 'contact', 'cellPhone', 'cellNumber', 'joining', 'companyName', 'clientStatus', 'clientBoardcase'] : 
     ['firstName', 'lastName', 'cell', 'landline', 'category', 'sub-category', 'country', 'religion', 'Email', 'website', 'designation', 'companyName'];

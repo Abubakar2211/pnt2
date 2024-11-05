@@ -5,7 +5,7 @@ if (isset($_POST['id'])) {
     $contactId = $_POST['id'];
 
     // Fetch contact details
-    $query = "SELECT * FROM contacts WHERE id = $contactId";
+    $query = "SELECT * FROM add_contacts WHERE id = $contactId";
     $result = mysqli_query($con, $query);
 
     if (mysqli_num_rows($result) > 0) {
