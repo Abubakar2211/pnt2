@@ -10,7 +10,7 @@ $output = "";
 if (mysqli_num_rows($result) > 0) {
 
     $output = '<div class="table-responsive">
-            <table id="typesTable" class="table table-striped table-bordered">
+            <table id="contactsTable" class="table table-striped table-bordered">
                 <thead>
                     <tr>
                         <th>S.No</th>

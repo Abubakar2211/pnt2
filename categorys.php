@@ -72,7 +72,7 @@ include 'db.php';
 <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.1.3/js/bootstrap.bundle.min.js"></script>
 <script>
     $(document).ready(function() {
-        $('#categoryTable').DataTable();
+        $('#contactsTable').DataTable();
 
         function loadTable() {
             $.ajax({
@@ -80,7 +80,7 @@ include 'db.php';
                 type: "POST",
                 success: function(data) {
                     $('#category-table').html(data);
-                    $('#categoryTable').DataTable();
+                    $('#contactsTable').DataTable();
                 }
             });
         }
