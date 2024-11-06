@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Nov 06, 2024 at 07:40 AM
+-- Generation Time: Nov 06, 2024 at 12:12 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -101,33 +101,24 @@ INSERT INTO `clients` (`id`, `name`, `email`, `contact`, `cellPhone`, `cellNumbe
 
 CREATE TABLE `contacts` (
   `id` int(11) NOT NULL,
-  `firstName` varchar(200) NOT NULL,
-  `lastName` varchar(200) NOT NULL,
-  `cell` int(110) NOT NULL,
-  `landline` int(110) NOT NULL,
-  `category` varchar(200) NOT NULL,
-  `sub-category` varchar(200) NOT NULL,
-  `country` varchar(200) NOT NULL,
-  `religion` varchar(200) NOT NULL,
-  `Email` varchar(200) NOT NULL,
-  `website` text NOT NULL,
-  `designation` varchar(200) NOT NULL,
-  `companyName` varchar(200) NOT NULL,
-  `status` varchar(200) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_swedish_ci;
+  `name` varchar(255) CHARACTER SET latin1 COLLATE latin1_swedish_ci NOT NULL,
+  `email` varchar(255) CHARACTER SET latin1 COLLATE latin1_swedish_ci NOT NULL,
+  `contact` varchar(50) CHARACTER SET latin1 COLLATE latin1_swedish_ci NOT NULL,
+  `cellPhone` varchar(255) NOT NULL,
+  `cellNumber` varchar(255) NOT NULL,
+  `joining` varchar(255) NOT NULL,
+  `companyName` varchar(255) NOT NULL,
+  `contactStatus` varchar(255) NOT NULL,
+  `contactBoardcast` varchar(255) NOT NULL,
+  `date_time` datetime NOT NULL DEFAULT current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `contacts`
 --
 
-INSERT INTO `contacts` (`id`, `firstName`, `lastName`, `cell`, `landline`, `category`, `sub-category`, `country`, `religion`, `Email`, `website`, `designation`, `companyName`, `status`) VALUES
-(15293, 'Shahid', '', 0, 0, 'Team', '', '', '', 'shahid@pntglobal.com', '', '', '', 'added'),
-(15294, 'Sehar', '', 0, 0, 'Team', '', '', '', 'syedasehar567@gmail.com', '', '', '', 'added'),
-(15295, 'SANA INTEZAR\'', '', 0, 0, 'Team', '', '', '', 'sanapretyintezar@gmail.com', '', '', '', 'added'),
-(15296, 'Afrah', '', 0, 0, 'Team', '', '', '', 'afiahsan23@gmail.com', '', '', '', 'added'),
-(15297, 'Ayesha Arif', '', 0, 0, 'Team', '', '', '', 'ayesha25arif@gmail.com', '', '', '', 'added'),
-(15298, 'Contact', '', 0, 0, '', '', 'Roll number', '', '', '', '', '', ''),
-(15299, '3122082355', '', 0, 0, '', '', '3120', '', '', '', '', '', '');
+INSERT INTO `contacts` (`id`, `name`, `email`, `contact`, `cellPhone`, `cellNumber`, `joining`, `companyName`, `contactStatus`, `contactBoardcast`, `date_time`) VALUES
+(1, 'Abubakar Baig', 'abubakar192005@gmail.com', '03122082355', '03122082355', '03122082355', '2024-11-06', 'feature developer', 'active', 'active', '2024-11-06 15:24:35');
 
 -- --------------------------------------------------------
 
@@ -203,6 +194,27 @@ INSERT INTO `teams` (`id`, `name`, `email`, `contact`, `designation`, `category`
 (2, 'Abubakar Baig', 'abubakar192005@gmail.com', '03122082355', 'sdfdsf', '1', '803c1f47a32d8a17adeeb578391d85fb', '2024-10-30 23:25:24'),
 (5, 'hasan', 'hasan@gmail.com', '03122082355', 'hasan baig', '2', 'd9b1d7db4cd6e70935368a1efb10e377', '2024-10-30 23:57:31');
 
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `types`
+--
+
+CREATE TABLE `types` (
+  `id` int(11) NOT NULL,
+  `type` varchar(255) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `types`
+--
+
+INSERT INTO `types` (`id`, `type`) VALUES
+(3, 'Team'),
+(4, 'Supplier'),
+(5, 'Contact'),
+(7, 'Clerks');
+
 --
 -- Indexes for dumped tables
 --
@@ -244,6 +256,12 @@ ALTER TABLE `teams`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indexes for table `types`
+--
+ALTER TABLE `types`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- AUTO_INCREMENT for dumped tables
 --
 
@@ -263,7 +281,7 @@ ALTER TABLE `clients`
 -- AUTO_INCREMENT for table `contacts`
 --
 ALTER TABLE `contacts`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15300;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `lists`
@@ -282,6 +300,12 @@ ALTER TABLE `suppliers`
 --
 ALTER TABLE `teams`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+
+--
+-- AUTO_INCREMENT for table `types`
+--
+ALTER TABLE `types`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
