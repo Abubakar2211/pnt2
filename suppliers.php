@@ -93,7 +93,7 @@ include 'db.php'; // Include your database connection file
 
         function loadTable() {
             $.ajax({
-                url: "supplier-load.php",
+                url: "suppliers-load.php",
                 type: "POST",
                 success: function(data) {
                     $('#supplier-table').html(data);
@@ -116,7 +116,7 @@ include 'db.php'; // Include your database connection file
                 $('#response').removeClass('alert alert-primary').addClass('alert alert-danger').html('All fields are required');
             } else {
                 $.ajax({
-                    url: "supplier-insert.php",
+                    url: "suppliers-insert.php",
                     type: "POST",
                     data: $('#supplier-form').serialize(),
                     success: function(data) {
@@ -137,7 +137,7 @@ include 'db.php'; // Include your database connection file
                 var supplierId = $(this).data('id');
                 var element = this;
                 $.ajax({
-                    url: "supplier-delete.php",
+                    url: "suppliers-delete.php",
                     type: "POST",
                     data: {
                         id: supplierId
@@ -161,7 +161,7 @@ include 'db.php'; // Include your database connection file
             $("#update-modal").modal('show');
 
             $.ajax({
-                url: "supplier-update-form.php",
+                url: "suppliers-update-form.php",
                 type: "POST",
                 data: {
                     id: supplierId
@@ -177,7 +177,7 @@ include 'db.php'; // Include your database connection file
             var formData = $('#update-form').serialize(); 
 
             $.ajax({
-                url: "supplier-update.php",
+                url: "suppliers-update.php",
                 type: "POST",
                 data: formData,
                 success: function(data) {
