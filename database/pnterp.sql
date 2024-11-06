@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Nov 06, 2024 at 12:12 PM
+-- Generation Time: Nov 06, 2024 at 09:39 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -43,23 +43,6 @@ CREATE TABLE `add_contacts` (
   `companyName` varchar(200) CHARACTER SET latin1 COLLATE latin1_swedish_ci NOT NULL,
   `status` varchar(200) CHARACTER SET latin1 COLLATE latin1_swedish_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- Dumping data for table `add_contacts`
---
-
-INSERT INTO `add_contacts` (`id`, `firstName`, `lastName`, `cell`, `landline`, `category`, `sub-category`, `country`, `religion`, `Email`, `website`, `designation`, `companyName`, `status`) VALUES
-(1, 'Name', 'Sell Number', 0, 0, 'Contact Number', 'Client Status', 'Joining', '', 'Company Name', NULL, 'Client Boardcast', '', ''),
-(2, 'Cheryl Lin', '(698)797-8852x156', 1, 0, '529-907-6129x70422', 'Active', '12/07/2021', '', 'Lane, Butler and Elliott', NULL, 'Yes', '', ''),
-(3, 'Rebecca Adams', '429-089-7519x8928', 1, 0, '952-821-6018x068', 'Active', '12/03/2022', '', 'Brooks and Sons', NULL, 'Yes', '', ''),
-(4, 'James Gonzales', '688.337.3287x56729', 728153, 0, '(486)810-7648x7329', 'Active', '24/05/2022', '', 'Garcia, Larson and Glenn', NULL, 'Yes', '', ''),
-(5, 'Brenda Reed', '(680)915-6924', 24, 0, '801-871-5825x70929', 'Active', '30/09/2021', '', 'Hanson PLC', NULL, 'Yes', '', ''),
-(6, 'Darrell Valdez', '(936)066-8362', 679, 0, '446-912-9956x05635', 'Active', '16/11/2021', '', 'Scott and Sons', NULL, 'Yes', '', ''),
-(7, 'Brian Smith', '+1-738-123-4088x3100', 0, 0, '361.237.5515', 'Active', '06/10/2020', '', 'Payne Group', NULL, 'Yes', '', ''),
-(8, 'Benjamin Moore', '(162)381-2763', 202771, 0, '(587)717-7568x32944', 'Active', '08/09/2024', '', 'Jackson, Stewart and Wright', NULL, 'Yes', '', ''),
-(9, 'Christina Diaz', '(192)144-8463x569', 1, 0, '923.127.3164x94848', 'Active', '19/03/2024', '', 'Burke, Singh and Conway', NULL, 'Yes', '', ''),
-(10, 'Kimberly Cook', '(315)234-7921x00124', 970701, 0, '(382)115-4406', 'Active', '05/03/2021', '', 'Noble, Hall and Fuller', NULL, 'Yes', '', ''),
-(11, 'James Moore', '+1-666-221-7856x72658', 740730, 0, '128-168-5940x419', 'Active', '04/01/2022', '', 'Young-Carroll', NULL, 'Yes', '', '');
 
 -- --------------------------------------------------------
 
@@ -149,6 +132,28 @@ INSERT INTO `lists` (`id`, `list-name`, `quantity`, `country`, `category`, `list
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `sub_types`
+--
+
+CREATE TABLE `sub_types` (
+  `id` int(11) NOT NULL,
+  `sub_type` varchar(255) NOT NULL,
+  `type_id` int(11) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `sub_types`
+--
+
+INSERT INTO `sub_types` (`id`, `sub_type`, `type_id`) VALUES
+(6, 'Morning', 1),
+(7, 'Best Team', 1),
+(9, 'aaaaaaa', 5),
+(10, 'Software Engineer', 4);
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `suppliers`
 --
 
@@ -210,10 +215,10 @@ CREATE TABLE `types` (
 --
 
 INSERT INTO `types` (`id`, `type`) VALUES
+(1, 'Teams'),
 (3, 'Team'),
 (4, 'Supplier'),
-(5, 'Contact'),
-(7, 'Clerks');
+(5, 'Contact');
 
 --
 -- Indexes for dumped tables
@@ -244,6 +249,13 @@ ALTER TABLE `lists`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indexes for table `sub_types`
+--
+ALTER TABLE `sub_types`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `type_id` (`type_id`);
+
+--
 -- Indexes for table `suppliers`
 --
 ALTER TABLE `suppliers`
@@ -269,43 +281,29 @@ ALTER TABLE `types`
 -- AUTO_INCREMENT for table `add_contacts`
 --
 ALTER TABLE `add_contacts`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT for table `clients`
+-- AUTO_INCREMENT for table `sub_types`
 --
-ALTER TABLE `clients`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24;
-
---
--- AUTO_INCREMENT for table `contacts`
---
-ALTER TABLE `contacts`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
-
---
--- AUTO_INCREMENT for table `lists`
---
-ALTER TABLE `lists`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=33;
-
---
--- AUTO_INCREMENT for table `suppliers`
---
-ALTER TABLE `suppliers`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
-
---
--- AUTO_INCREMENT for table `teams`
---
-ALTER TABLE `teams`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+ALTER TABLE `sub_types`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
 -- AUTO_INCREMENT for table `types`
 --
 ALTER TABLE `types`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
+
+--
+-- Constraints for dumped tables
+--
+
+--
+-- Constraints for table `sub_types`
+--
+ALTER TABLE `sub_types`
+  ADD CONSTRAINT `sub_types_ibfk_1` FOREIGN KEY (`type_id`) REFERENCES `types` (`id`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
