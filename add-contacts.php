@@ -2,7 +2,7 @@
 session_start();
 $_SESSION['form_type'] = 'add_contact'; // Set session variable for contact
 include 'header.php';
-include 'db.php'; 
+include 'db.php';
 ?>
 <!-- Include necessary CSS -->
 <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.25/css/jquery.dataTables.min.css">
@@ -44,22 +44,17 @@ include 'db.php';
             </thead>
             <tbody>
                 <?php
-
                 // Fetch records from the database
                 $query = "SELECT * FROM `add_contacts`";
-                // print_r($query); exit();
                 $result = mysqli_query($con, $query);
                 $c = mysqli_num_rows($result);
-                // Check if there are any records
                 $i = 1;
 
                 if ($c > 0) {
-                    // echo "hh";
-                    // $contactss = mysqli_fetch_assoc($result);
                     while ($contacts = mysqli_fetch_assoc($result)) {
                 ?>
                         <tr>
-                            <td><?= $i ?></td>
+                            <td><?= $i++ ?></td>
                             <td><?= !empty($contacts['lastName']) ? $contacts['firstName'] . ' ' . $contacts['lastName'] : $contacts['firstName'] ?></td>
                             <td><?= $contacts['Email'] ?></td>
                             <td><?= $contacts['category'] ?></td>
@@ -72,11 +67,11 @@ include 'db.php';
                                     <i class='fa-solid fa-delete-left'></i>
                                 </button>
                             </td>
-                            <?= $i++ ?>
                         </tr>
-                <?php }
+                <?php
+                    }
                 } else {
-                    $contacts = [];
+                    echo "<tr><td colspan='6'>No contacts found</td></tr>";
                 }
                 ?>
             </tbody>

@@ -1,6 +1,6 @@
 <?php
 session_start();
-$_SESSION['form_type'] = 'contact'; // Set session variable for contact
+$_SESSION['form_type'] = 'type'; // Set session variable for type
 include 'header.php';
 include 'db.php';
 ?>
@@ -11,9 +11,9 @@ include 'db.php';
 <!-- Font Icons -->
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 
-<div class="content container">
+<div class="type container">
     <div class="list-header d-flex justify-content-between align-items-center my-4">
-        <h2>Contacts Details</h2>
+        <h2>Type Details</h2>
 
         <a href="select-csv.php"><button class="btn btn-primary">Upload CSV File</button></a>
 
@@ -21,60 +21,14 @@ include 'db.php';
     </div>
 
     <div class="form-container mb-3">
-        <form action="" id="contact-form" method="post" enctype="multipart/form-data">
-            <div class="select-type my-3">
-                <h5>Select Your Type</h5>
-                <select name="type" id="type" class="form-control col-4">
-                    <option value="team">Team</option>
-                    <option value="supplier">Supplier</option>
-                    <option value="client">Client</option>
-                </select>
-            </div>
+        <form action="" id="type-form" method="post" enctype="multipart/form-data">
             <div class="row">
-                <div class="mb-3 col-md-4 ">
-                    <label for="name" class="form-label">Name:</label>
-                    <input type="text" class="form-control" id="name" placeholder="Enter name" name="name">
-                </div>
-                <div class="mb-3 col-md-4 ">
-                    <label for="email" class="form-label">Email:</label>
-                    <input type="email" class="form-control" id="email" placeholder="Enter email" name="email">
-                </div>
-                <div class="mb-3 col-md-4 ">
-                    <label for="contact" class="form-label">Contact Number</label>
-                    <input type="Number" class="form-control" id="contact" placeholder="Enter contact" name="contact">
-                </div>
-                <div class="mb-3 col-md-4 ">
-                    <label for="cellPhone" class="form-label">Cell Phone</label>
-                    <input type="Number" class="form-control" id="cellPhone" placeholder="Enter Cell Phone" name="cellPhone">
-                </div>
-                <div class="mb-3 col-md-4 ">
-                    <label for="cellNumber" class="form-label">Cell Number</label>
-                    <input type="Number" class="form-control" id="cellNumber" placeholder="Enter Cell Number" name="cellNumber">
-                </div>
-                <div class="mb-3 col-md-4 ">
-                    <label for="joining" class="form-label">Joining</label>
-                    <input type="date" class="form-control" id="joining" placeholder="Enter joining" name="joining">
-                </div>
-                <div class="mb-3 col-md-4 ">
-                    <label for="companyName" class="form-label">Company Name</label>
-                    <input type="text" class="form-control" id="companyName" placeholder="Enter companyName" name="companyName">
-                </div>
-                <div class="mb-3 col-md-4 ">
-                    <label for="contactStatus" class="form-label">Contact Status</label>
-                    <select name="contactStatus" class="form-control" id="contactStatus">
-                        <option value="active">Active</option>
-                        <option value="deactive">Deactive</option>
-                    </select>
-                </div>
-                <div class="mb-3 col-md-4 ">
-                    <label for="contactBoardcast" class="form-label">Contact Boardcast</label>
-                    <select name="contactBoardcast" class="form-control" id="contactBoardcast">
-                        <option value="active">Active</option>
-                        <option value="deactive">Deactive</option>
-                    </select>
+                <div class="mb-3 ">
+                    <label for="type" class="form-label">Enter Type:</label>
+                    <input type="text" class="form-control" id="type" placeholder="Enter type" name="type">
                 </div>
             </div>
-            <button type="submit" id="contact-submit" class="btn btn-primary">Submit</button>
+            <button type="submit" id="type-submit" class="btn btn-primary">Submit</button>
         </form>
         <div id="response" class="my-2"></div>
 
@@ -90,7 +44,7 @@ include 'db.php';
 
 
     <!-- Display DataTable -->
-    <div class="datatable-container mt-4" id="contact-table">
+    <div class="datatable-container mt-4" id="type-table">
 
 
     </div>
@@ -101,10 +55,10 @@ include 'db.php';
     <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="detailsModalLabel">Contact Details</h5>
+                <h5 class="modal-title" id="detailsModalLabel">type Details</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
-            <div class="modal-body" id="contactDetails">
+            <div class="modal-body" id="typeDetails">
                 <!-- Details will be loaded here via AJAX -->
             </div>
         </div>
@@ -118,43 +72,35 @@ include 'db.php';
 <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.1.3/js/bootstrap.bundle.min.js"></script>
 <script>
     $(document).ready(function() {
-        $('#contactsTable').DataTable();
+        $('#typesTable').DataTable();
 
         function loadTable() {
             $.ajax({
-                url: "contacts-load.php",
+                url: "types-load.php",
                 type: "POST",
                 success: function(data) {
-                    $('#contact-table').html(data);
-                    $('#contactsTable').DataTable();
+                    $('#type-table').html(data);
+                    $('#typesTable').DataTable();
                 }
             });
         }
         loadTable();
 
-        $('#contact-submit').on("click", function(e) {
+        $('#type-submit').on("click", function(e) {
             e.preventDefault();
-            var name = $("#name").val();
-            var email = $("#email").val();
-            var contact = $("#contact").val();
-            var cellPhone = $("#cellPhone").val();
-            var cellNumber = $("#cellNumber").val();
-            var joining = $("#joining").val();
-            var companyName = $("#companyName").val();
-            var contactStatus = $("#contactStatus").val();
-            var contactBoardcast = $("#contactBoardcast").val();
+            var type = $("#type").val();
 
-            if (name == "" || email == "" || contact == "" || cellPhone == "" || cellNumber == "" || joining == "" || companyName == "" || contactStatus == "" || contactBoardcast == "") {
+            if (type == "") {
                 $('#response').fadeIn();
                 $('#response').removeClass('alert alert-primary').addClass('alert alert-danger').html('All fields are required');
             } else {
                 $.ajax({
-                    url: "contacts-insert.php",
+                    url: "types-insert.php",
                     type: "POST",
-                    data: $('#contact-form').serialize(),
+                    data: $('#type-form').serialize(),
                     success: function(data) {
-                        $('#contact-form')[0].reset();
-                        loadTable(); // Ensure this function is defined
+                        $('#type-form')[0].reset();
+                        loadTable();
                         $('#response').fadeIn();
                         $('#response').removeClass('alert alert-danger').addClass('alert alert-primary').html(data);
                         setTimeout(function() {
@@ -172,13 +118,13 @@ include 'db.php';
 
         $(document).on("click", ".delete-btn", function() {
             if (confirm("Do you really want to delete this record")) {
-                var contactId = $(this).data('id');
+                var typeId = $(this).data('id');
                 var element = this;
                 $.ajax({
-                    url: "contacts-delete.php",
+                    url: "types-delete.php",
                     type: "POST",
                     data: {
-                        id: contactId
+                        id: typeId
                     },
                     success: function(data) {
                         if (data == 1) {
@@ -193,16 +139,16 @@ include 'db.php';
             }
         });
         $(document).on("click", ".edit-btn", function() {
-            var contactId = $(this).data("eid");
+            var typeId = $(this).data("eid");
 
             $("#update-modal .modal-content").html("");
             $("#update-modal").modal('show');
 
             $.ajax({
-                url: "contacts-update-form.php",
+                url: "types-update-form.php",
                 type: "POST",
                 data: {
-                    id: contactId
+                    id: typeId
                 },
                 success: function(data) {
                     $("#update-modal .modal-content").html(data);
@@ -215,7 +161,7 @@ include 'db.php';
             var formData = $('#update-form').serialize();
 
             $.ajax({
-                url: "contacts-update.php",
+                url: "types-update.php",
                 type: "POST",
                 data: formData,
                 success: function(data) {
@@ -223,7 +169,7 @@ include 'db.php';
                         $("#update-modal").modal('hide');
                         loadTable();
                     } else {
-                        alert("Error updating contact data: " + data);
+                        alert("Error updating type data: " + data);
                     }
                 },
 
