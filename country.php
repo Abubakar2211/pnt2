@@ -1,6 +1,6 @@
 <?php
 session_start();
-$_SESSION['form_category'] = 'category'; // Set session variable for category
+$_SESSION['form_country'] = 'country'; // Set session variable for country
 include 'header.php';
 include 'db.php';
 ?>
@@ -13,7 +13,7 @@ include 'db.php';
 
 <div class="type container">
     <div class="list-header d-flex justify-content-between align-items-center my-4">
-        <h2>Category Details</h2>
+        <h2>Country Details</h2>
 
         <a href="select-csv.php"><button class="btn btn-primary">Upload CSV File</button></a>
 
@@ -21,14 +21,14 @@ include 'db.php';
     </div>
 
     <div class="form-container mb-3">
-        <form action="" id="type-form" method="post" enctype="multipart/form-data">
+        <form action="" id="country-form" method="post" enctype="multipart/form-data">
             <div class="row">
                 <div class="mb-3 ">
-                    <label for="category" class="form-label">Enter Category:</label>
-                    <input type="text" class="form-control" id="category" placeholder="Enter category" name="category">
+                    <label for="country" class="form-label">Enter Country:</label>
+                    <input type="text" class="form-control" id="country" placeholder="Enter country" name="country">
                 </div>
             </div>
-            <button type="submit" id="category-submit" class="btn btn-primary">Submit</button>
+            <button type="submit" id="country-submit" class="btn btn-primary">Submit</button>
         </form>
         <div id="response" class="my-2"></div>
 
@@ -44,7 +44,7 @@ include 'db.php';
 
 
     <!-- Display DataTable -->
-    <div class="datatable-container mt-4" id="category-table">
+    <div class="datatable-container mt-4" id="country-table">
 
 
     </div>
@@ -72,34 +72,34 @@ include 'db.php';
 <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.1.3/js/bootstrap.bundle.min.js"></script>
 <script>
     $(document).ready(function() {
-        $('#contactsTable').DataTable();
+        $('#countryTable').DataTable();
 
         function loadTable() {
             $.ajax({
-                url: "category-load.php",
+                url: "country-load.php",
                 type: "POST",
                 success: function(data) {
-                    $('#category-table').html(data);
-                    $('#contactsTable').DataTable();
+                    $('#country-table').html(data);
+                    $('#countryTable').DataTable();
                 }
             });
         }
         loadTable();
 
-        $('#category-submit').on("click", function(e) {
+        $('#country-submit').on("click", function(e) {
             e.preventDefault();
-            var category = $("#category").val();
+            var country = $("#country").val();
 
-            if (category == "") {
+            if (country == "") {
                 $('#response').fadeIn();
                 $('#response').removeClass('alert alert-primary').addClass('alert alert-danger').html('All fields are required');
             } else {
                 $.ajax({
-                    url: "category-insert.php",
+                    url: "country-insert.php",
                     type: "POST",
-                    data: $('#type-form').serialize(),
+                    data: $('#country-form').serialize(),
                     success: function(data) {
-                        $('#type-form')[0].reset();
+                        $('#country-form')[0].reset();
                         loadTable();
                         $('#response').fadeIn();
                         $('#response').removeClass('alert alert-danger').addClass('alert alert-primary').html(data);
@@ -118,13 +118,13 @@ include 'db.php';
 
         $(document).on("click", ".delete-btn", function() {
             if (confirm("Do you really want to delete this record")) {
-                var categoryId = $(this).data('id');
+                var countryId = $(this).data('id');
                 var element = this;
                 $.ajax({
-                    url: "category-delete.php",
+                    url: "country-delete.php",
                     type: "POST",
                     data: {
-                        id: categoryId
+                        id: countryId
                     },
                     success: function(data) {
                         if (data == 1) {
@@ -141,16 +141,16 @@ include 'db.php';
 
 
         $(document).on("click", ".edit-btn", function() {
-            var categoryId = $(this).data("eid");
+            var countryId = $(this).data("eid");
 
             $("#update-modal .modal-content").html("");
             $("#update-modal").modal('show');
 
             $.ajax({
-                url: "category-update-form.php",
+                url: "country-update-form.php",
                 type: "POST",
                 data: {
-                    id: categoryId
+                    id: countryId
                 },
                 success: function(data) {
                     $("#update-modal .modal-content").html(data);
@@ -163,7 +163,7 @@ include 'db.php';
             var formData = $('#update-form').serialize();
 
             $.ajax({
-                url: "category-update.php",
+                url: "country-update.php",
                 type: "POST",
                 data: formData,
                 success: function(data) {
