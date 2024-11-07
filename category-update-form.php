@@ -2,7 +2,7 @@
 include "db.php";
 $categoryId = mysqli_real_escape_string($con, $_POST['id']);
 
-$sql = "SELECT * FROM categorys WHERE id = $categoryId"; 
+$sql = "SELECT * FROM category WHERE id = $categoryId"; 
 $query = mysqli_query($con, $sql) or die("SQL Query Failed.");
 $output = "";
 

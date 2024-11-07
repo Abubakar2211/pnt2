@@ -2,7 +2,9 @@
 
 include "db.php";
 
-$sql = "SELECT * FROM categorys";
+$sql = "SELECT category.category, sub_category.sub_category, sub_category.id 
+        FROM sub_category 
+        INNER JOIN category ON category.id = sub_category.category_id";
 $result = mysqli_query($con, $sql) or die("Query Failed");
 
 $output = "";
@@ -10,11 +12,12 @@ $output = "";
 if (mysqli_num_rows($result) > 0) {
 
     $output = '<div class="table-responsive">
-            <table id="contactsTable" class="table table-striped table-bordered">
+            <table id="typesTable" class="table table-striped table-bordered">
                 <thead>
                     <tr>
                         <th>S.No</th>
                         <th>Category</th>
+                        <th>Sub Category</th>
                         <th>Edit</th>
                         <th>Delete</th>
                     </tr>
@@ -25,11 +28,12 @@ if (mysqli_num_rows($result) > 0) {
         $output .= "<tr>
         <td>{$i}</td>
         <td>" . htmlspecialchars($row['category']) . "</td>
+        <td>" . htmlspecialchars($row['sub_category']) . "</td>
         <td>
-            <button class='btn  btn-sm mx-2 edit-btn' data-eid='{$row['id']}'><i class='fa-regular fa-pen-to-square'></i></button>
+            <button class='btn btn-sm mx-2 edit-btn' data-eid='{$row['id']}'><i class='fa-regular fa-pen-to-square'></i></button>
         </td>
         <td>
-            <button class='delete-btn btn  btn-sm' data-id='{$row['id']}'><i class='fa-solid fa-delete-left' ></i></button>
+            <button class='delete-btn btn btn-sm' data-id='{$row['id']}'><i class='fa-solid fa-delete-left'></i></button>
         </td>
     </tr>";
         $i++;
@@ -40,3 +44,5 @@ if (mysqli_num_rows($result) > 0) {
 } else {
     echo "<h2>No Record Found</h2>";
 }
+
+?>
