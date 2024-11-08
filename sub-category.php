@@ -32,6 +32,7 @@ include 'db.php';
                     ?>
                         <label for="category" class="form-label">Select Category:</label>
                         <select name="category" id="category" class="form-control">
+                        <option value="">Choose a category</option>
                             <?php
                             while ($row = mysqli_fetch_assoc($result)) {
                                 echo '<option value="' . htmlspecialchars($row['category']) . '">' . htmlspecialchars($row['category']) . '</option>';
