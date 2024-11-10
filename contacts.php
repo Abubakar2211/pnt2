@@ -22,58 +22,117 @@ include 'db.php';
 
     <div class="form-container mb-3">
         <form action="" id="contact-form" method="post" enctype="multipart/form-data">
-            <div class="select-type my-3">
-                <h5>Select Your Type</h5>
-                <select name="type" id="type" class="form-control col-4">
-                    <option value="team">Team</option>
-                    <option value="supplier">Supplier</option>
-                    <option value="client">Client</option>
-                </select>
-            </div>
             <div class="row">
                 <div class="mb-3 col-md-4 ">
-                    <label for="name" class="form-label">Name:</label>
-                    <input type="text" class="form-control" id="name" placeholder="Enter name" name="name">
+                    <label for="first_name" class="form-label">First Name:</label>
+                    <input type="text" class="form-control" id="first_name" placeholder="Enter first name" name="first_name">
                 </div>
                 <div class="mb-3 col-md-4 ">
-                    <label for="email" class="form-label">Email:</label>
-                    <input type="email" class="form-control" id="email" placeholder="Enter email" name="email">
+                    <label for="last_name" class="form-label">Last Name:</label>
+                    <input type="text" class="form-control" id="last_name" placeholder="Enter last name" name="last_name">
                 </div>
                 <div class="mb-3 col-md-4 ">
-                    <label for="contact" class="form-label">Contact Number</label>
-                    <input type="Number" class="form-control" id="contact" placeholder="Enter contact" name="contact">
+                    <label for="cell_number" class="form-label">Cell Number</label>
+                    <input type="Number" class="form-control" id="cell_number" placeholder="Enter cell number" name="cell_number">
                 </div>
                 <div class="mb-3 col-md-4 ">
-                    <label for="cellPhone" class="form-label">Cell Phone</label>
-                    <input type="Number" class="form-control" id="cellPhone" placeholder="Enter Cell Phone" name="cellPhone">
+                    <label for="email_id" class="form-label">Email:</label>
+                    <input type="email" class="form-control" id="email_id" placeholder="Enter email" name="email_id">
                 </div>
                 <div class="mb-3 col-md-4 ">
-                    <label for="cellNumber" class="form-label">Cell Number</label>
-                    <input type="Number" class="form-control" id="cellNumber" placeholder="Enter Cell Number" name="cellNumber">
+                    <label for="phone_number" class="form-label">Phone Number</label>
+                    <input type="Number" class="form-control" id="phone_number" placeholder="Enter cell number" name="phone_number">
                 </div>
                 <div class="mb-3 col-md-4 ">
-                    <label for="joining" class="form-label">Joining</label>
-                    <input type="date" class="form-control" id="joining" placeholder="Enter joining" name="joining">
+                    <label for="company_name" class="form-label">Company Name:</label>
+                    <input type="text" class="form-control" id="company_name" placeholder="Enter company name" name="company_name">
                 </div>
                 <div class="mb-3 col-md-4 ">
-                    <label for="companyName" class="form-label">Company Name</label>
-                    <input type="text" class="form-control" id="companyName" placeholder="Enter companyName" name="companyName">
+                    <label for="designation" class="form-label">Designation:</label>
+                    <input type="text" class="form-control" id="designation" placeholder="Enter designation" name="designation">
                 </div>
                 <div class="mb-3 col-md-4 ">
-                    <label for="contactStatus" class="form-label">Contact Status</label>
-                    <select name="contactStatus" class="form-control" id="contactStatus">
-                        <option value="active">Active</option>
-                        <option value="deactive">Deactive</option>
+                    <?php
+                    $sql_country = "SELECT * FROM country";
+                    $result_country = mysqli_query($con, $sql_country);
+                    ?>
+                    <label for="country" class="form-label">Country:</label>
+                    <select name="country" class="form-control" id="country-field">
+                        <option value="">Choose a country</option>
+                        <?php while ($row_country = mysqli_fetch_assoc($result_country)) {
+                            echo '<option value="' . $row_country['country'] . '">' . $row_country['country'] . '</option>';
+                        } ?>
+                    </select>
+
+                </div>
+                <div class="mb-3 col-md-4 ">
+                    <?php
+                    $sql_city = "SELECT * FROM city";
+                    $result_city = mysqli_query($con, $sql_city);
+                    ?>
+                    <label for="city" class="form-label">City:</label>
+                    <select name="city" class="form-control" id="city">
+                        <option value="">Choose a city</option>
+                        <?php
+                        while ($row_city = mysqli_fetch_assoc($result_city)) {
+                            echo  '<option value="' . $row_city['city'] . '">' . $row_city['city'] . '</option>';
+                        }
+                        ?>
+                    </select>
+
+                </div>
+                <div class="mb-3 col-md-4 ">
+                    <?php
+                    $sql_religion = "SELECT * FROM religion";
+                    $result_religion = mysqli_query($con, $sql_religion);
+                    ?>
+                    <label for="religion" class="form-label">Religion:</label>
+                    <select name="religion" class="form-control" id="religion">
+                        <option value="">Choose a religion</option>
+                        <?php
+                        while ($row_city = mysqli_fetch_assoc($result_religion)) {
+                            echo  '<option value="' . $row_city['religion'] . '">' . $row_city['religion'] . '</option>';
+                        }
+                        ?>
+                    </select>
+
+                </div>
+                <div class="mb-3 col-md-4 ">
+                    <label for="D_O_B" class="form-label">Date of birth:</label>
+                    <input type="date" class="form-control" id="D_O_B" placeholder="Enter Date of bith" name="D_O_B">
+                </div>
+                <div class="mb-3 col-md-4 ">
+                    <?php
+                    $sql_category = "SELECT * FROM category";
+                    $result_category = mysqli_query($con, $sql_category);
+                    ?>
+                    <label for="category" class="form-label">Category:</label>
+                    <select name="category" class="form-control" id="category">
+                        <option value="">Choose a category</option>
+                        <?php
+                        while ($row_city = mysqli_fetch_assoc($result_category)) {
+                            echo  '<option value="' . $row_city['category'] . '">' . $row_city['category'] . '</option>';
+                        }
+                        ?>
                     </select>
                 </div>
                 <div class="mb-3 col-md-4 ">
-                    <label for="contactBoardcast" class="form-label">Contact Boardcast</label>
-                    <select name="contactBoardcast" class="form-control" id="contactBoardcast">
-                        <option value="active">Active</option>
-                        <option value="deactive">Deactive</option>
+                    <?php
+                    $sql_sub_category = "SELECT * FROM sub_category";
+                    $result_sub_category = mysqli_query($con, $sql_sub_category);
+                    ?>
+                    <label for="sub_category" class="form-label">Sub category:</label>
+                    <select name="sub_category" class="form-control" id="sub_category">
+                        <option value="">Choose a sub category</option>
+                        <?php
+                        while ($row_city = mysqli_fetch_assoc($result_sub_category)) {
+                            echo  '<option value="' . $row_city['sub_category'] . '">' . $row_city['sub_category'] . '</option>';
+                        }
+                        ?>
                     </select>
                 </div>
             </div>
+
             <button type="submit" id="contact-submit" class="btn btn-primary">Submit</button>
         </form>
         <div id="response" class="my-2"></div>
@@ -126,25 +185,33 @@ include 'db.php';
                 type: "POST",
                 success: function(data) {
                     $('#contact-table').html(data);
-                    $('#contactsTable').DataTable();
+                    $('#contactsTable').DataTable(); 
                 }
             });
         }
+
         loadTable();
 
         $('#contact-submit').on("click", function(e) {
             e.preventDefault();
-            var name = $("#name").val();
-            var email = $("#email").val();
-            var contact = $("#contact").val();
-            var cellPhone = $("#cellPhone").val();
-            var cellNumber = $("#cellNumber").val();
-            var joining = $("#joining").val();
-            var companyName = $("#companyName").val();
-            var contactStatus = $("#contactStatus").val();
-            var contactBoardcast = $("#contactBoardcast").val();
 
-            if (name == "" || email == "" || contact == "" || cellPhone == "" || cellNumber == "" || joining == "" || companyName == "" || contactStatus == "" || contactBoardcast == "") {
+            var first_name = $("#first_name").val();
+            var last_name = $("#last_name").val();
+            var cell_number = $("#cell_number").val();
+            var email_id = $("#email_id").val();
+            var phone_number = $("#phone_number").val();
+            var company_name = $("#company_name").val();
+            var designation = $("#designation").val();
+            var country_field = $("#country-field").val(); // Fixed variable name
+            var city = $("#city").val();
+            var religion = $("#religion").val();
+            var D_O_B = $("#D_O_B").val();
+            var category = $("#category").val();
+            var sub_category = $("#sub_category").val();
+
+            // Basic Validation
+            if (first_name == "" || last_name == "" || cell_number == "" || email_id == "" || phone_number == "" || company_name == "" || designation == "" || country_field == "" ||
+                city == "" || religion == "" || D_O_B == "" || category == "" || sub_category == "") {
                 $('#response').fadeIn();
                 $('#response').removeClass('alert alert-primary').addClass('alert alert-danger').html('All fields are required');
             } else {
@@ -153,8 +220,8 @@ include 'db.php';
                     type: "POST",
                     data: $('#contact-form').serialize(),
                     success: function(data) {
-                        $('#contact-form')[0].reset();
-                        loadTable(); // Ensure this function is defined
+                        $('#contact-form')[0].reset(); 
+                        loadTable(); 
                         $('#response').fadeIn();
                         $('#response').removeClass('alert alert-danger').addClass('alert alert-primary').html(data);
                         setTimeout(function() {
@@ -163,12 +230,11 @@ include 'db.php';
                     },
                     error: function(xhr, status, error) {
                         $('#response').fadeIn();
-                        $('#response').removeClass('alert alert-primary').addClass('alert alert-danger').html('An error occurred: ' + xhr.responseText);
+                        $('#response').removeClass('alert alert-primary').addClass('alert alert-danger').html('Error occurred, try again!');
                     }
                 });
             }
         });
-
 
         $(document).on("click", ".delete-btn", function() {
             if (confirm("Do you really want to delete this record")) {

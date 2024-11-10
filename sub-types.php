@@ -32,7 +32,7 @@ include 'db.php';
                     ?>
                         <label for="type" class="form-label">Select Type:</label>
                         <select name="type" id="type" class="form-control">
-                         <option value="">Choose a type</option>
+                         <option value="">Choose a type</option>    
                             <?php
                             while ($row = mysqli_fetch_assoc($result)) {
                                 echo '<option value="' . htmlspecialchars($row['type']) . '">' . htmlspecialchars($row['type']) . '</option>';
