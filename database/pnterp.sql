@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Nov 10, 2024 at 08:08 PM
+-- Generation Time: Nov 13, 2024 at 12:18 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -59,7 +59,18 @@ INSERT INTO `add_contacts` (`id`, `firstName`, `lastName`, `cell`, `landline`, `
 (8, 'Benjamin Moore', '', 0, 0, '202.771.5315x387', 'Yes', '', '08/09/2024', 'carsondale@kidd.com', NULL, 'Active', 'Jackson, Stewart and Wright', ''),
 (9, 'Christina Diaz', '', 923127, 0, '001-731-632-0188x9916', 'Yes', '', '19/03/2024', 'jamespowell@clark-gonzalez.com', NULL, 'Active', 'Burke, Singh and Conway', ''),
 (10, 'Kimberly Cook', '', 0, 0, '970.701.9750x78836', 'Yes', '', '05/03/2021', 'scottgeorge@cannon-pierce.com', NULL, 'Active', 'Noble, Hall and Fuller', ''),
-(11, 'James Moore', '', 128, 0, '740.730.9838x39088', 'Yes', '', '04/01/2022', 'kimberlydiaz@yahoo.com', NULL, 'Active', 'Young-Carroll', '');
+(11, 'James Moore', '', 128, 0, '740.730.9838x39088', 'Yes', '', '04/01/2022', 'kimberlydiaz@yahoo.com', NULL, 'Active', 'Young-Carroll', ''),
+(12, 'Name', '', 0, 0, '', 'Client Status', '', 'Sell Phone', 'Company Name', 'Contact Number', 'Client Boardcast', '', ''),
+(13, 'Cheryl Lin', '', 0, 0, '', 'Active', '', '+1-485-032-6738x1196', 'Lane, Butler and Elliott', '529-907-6129x70422', 'Yes', '', ''),
+(14, 'Rebecca Adams', '', 429, 0, '', 'Active', '', '001-630-891-4387x632', 'Brooks and Sons', '952-821-6018x068', 'Yes', '', ''),
+(15, 'James Gonzales', '', 688337, 0, '', 'Active', '', '728.153.1309', 'Garcia, Larson and Glenn', '(486)810-7648x7329', 'Yes', '', ''),
+(16, 'Brenda Reed', '', 0, 0, '', 'Active', '', '024-949-1234x7749', 'Hanson PLC', '801-871-5825x70929', 'Yes', '', ''),
+(17, 'Darrell Valdez', '', 0, 0, '', 'Active', '', '679-922-5031x29199', 'Scott and Sons', '446-912-9956x05635', 'Yes', '', ''),
+(18, 'Brian Smith', '', 1, 0, '', 'Active', '', '(324)975-4127', 'Payne Group', '361.237.5515', 'Yes', '', ''),
+(19, 'Benjamin Moore', '', 0, 0, '', 'Active', '', '202.771.5315x387', 'Jackson, Stewart and Wright', '(587)717-7568x32944', 'Yes', '', ''),
+(20, 'Christina Diaz', '', 0, 0, '', 'Active', '', '001-731-632-0188x9916', 'Burke, Singh and Conway', '923.127.3164x94848', 'Yes', '', ''),
+(21, 'Kimberly Cook', '', 0, 0, '', 'Active', '', '970.701.9750x78836', 'Noble, Hall and Fuller', '(382)115-4406', 'Yes', '', ''),
+(22, 'James Moore', '', 1, 0, '', 'Active', '', '740.730.9838x39088', 'Young-Carroll', '128-168-5940x419', 'Yes', '', '');
 
 -- --------------------------------------------------------
 
@@ -71,6 +82,13 @@ CREATE TABLE `category` (
   `id` int(11) NOT NULL,
   `category` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `category`
+--
+
+INSERT INTO `category` (`id`, `category`) VALUES
+(2, 'Abubakar');
 
 -- --------------------------------------------------------
 
@@ -132,15 +150,24 @@ INSERT INTO `clients` (`id`, `name`, `email`, `contact`, `cellPhone`, `cellNumbe
 
 CREATE TABLE `contacts` (
   `id` int(11) NOT NULL,
-  `name` varchar(255) CHARACTER SET latin1 COLLATE latin1_swedish_ci NOT NULL,
-  `email` varchar(255) CHARACTER SET latin1 COLLATE latin1_swedish_ci NOT NULL,
-  `contact` varchar(50) CHARACTER SET latin1 COLLATE latin1_swedish_ci NOT NULL,
-  `cellPhone` varchar(255) NOT NULL,
-  `cellNumber` varchar(255) NOT NULL,
-  `joining` varchar(255) NOT NULL,
-  `companyName` varchar(255) NOT NULL,
-  `contactStatus` varchar(255) NOT NULL,
-  `contactBoardcast` varchar(255) NOT NULL,
+  `type` varchar(255) NOT NULL,
+  `sub_type` varchar(255) NOT NULL,
+  `first_name` varchar(255) NOT NULL,
+  `last_name` varchar(255) NOT NULL,
+  `designation` varchar(255) NOT NULL,
+  `email_id` varchar(255) NOT NULL,
+  `cell_number` varchar(255) NOT NULL,
+  `phone_number` varchar(255) NOT NULL,
+  `company_name` varchar(255) NOT NULL,
+  `category` varchar(255) NOT NULL,
+  `sub_category` varchar(255) NOT NULL,
+  `website` varchar(255) NOT NULL,
+  `country` varchar(255) NOT NULL,
+  `city` varchar(255) NOT NULL,
+  `D_O_B` varchar(255) NOT NULL,
+  `religion` varchar(255) NOT NULL,
+  `facebook` varchar(255) NOT NULL,
+  `status` varchar(255) NOT NULL,
   `date_time` datetime NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
@@ -148,8 +175,8 @@ CREATE TABLE `contacts` (
 -- Dumping data for table `contacts`
 --
 
-INSERT INTO `contacts` (`id`, `name`, `email`, `contact`, `cellPhone`, `cellNumber`, `joining`, `companyName`, `contactStatus`, `contactBoardcast`, `date_time`) VALUES
-(1, 'Abubakar Baig', 'abubakar192005@gmail.com', '03122082355', '03122082355', '03122082355', '2024-11-06', 'feature developer', 'active', 'active', '2024-11-06 15:24:35');
+INSERT INTO `contacts` (`id`, `type`, `sub_type`, `first_name`, `last_name`, `designation`, `email_id`, `cell_number`, `phone_number`, `company_name`, `category`, `sub_category`, `website`, `country`, `city`, `D_O_B`, `religion`, `facebook`, `status`, `date_time`) VALUES
+(2, 'Supplier', 'aaaa', 'Abubakar', 'Baig', 'aasss', 'abubakar192005@gmail.com', '0312-2082355', '03122082355', 'fd', 'Abubakar', 'Software engineer', '', 'Pakistan', 'Karachi', '2024-11-13', 'aaa', '', 'Active', '2024-11-13 03:00:16');
 
 -- --------------------------------------------------------
 
@@ -215,7 +242,8 @@ CREATE TABLE `religion` (
 
 INSERT INTO `religion` (`id`, `religion`) VALUES
 (2, 'aaa'),
-(3, 'aaa');
+(3, 'aaa'),
+(4, 'islam');
 
 -- --------------------------------------------------------
 
@@ -229,6 +257,13 @@ CREATE TABLE `sub_category` (
   `category_id` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+--
+-- Dumping data for table `sub_category`
+--
+
+INSERT INTO `sub_category` (`id`, `sub_category`, `category_id`) VALUES
+(2, 'Software engineer', 2);
+
 -- --------------------------------------------------------
 
 --
@@ -240,6 +275,13 @@ CREATE TABLE `sub_types` (
   `sub_type` varchar(255) NOT NULL,
   `type_id` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `sub_types`
+--
+
+INSERT INTO `sub_types` (`id`, `sub_type`, `type_id`) VALUES
+(2, 'aaaa', 1);
 
 -- --------------------------------------------------------
 
@@ -308,15 +350,7 @@ INSERT INTO `types` (`id`, `type`) VALUES
 (1, 'Teams'),
 (3, 'Team'),
 (4, 'Supplier'),
-(5, 'Contact'),
-(15, ''),
-(16, ''),
-(17, ''),
-(18, ''),
-(19, ''),
-(20, ''),
-(21, ''),
-(22, '');
+(5, 'Contact');
 
 --
 -- Indexes for dumped tables
@@ -410,19 +444,25 @@ ALTER TABLE `types`
 -- AUTO_INCREMENT for table `add_contacts`
 --
 ALTER TABLE `add_contacts`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=23;
 
 --
 -- AUTO_INCREMENT for table `category`
 --
 ALTER TABLE `category`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `city`
 --
 ALTER TABLE `city`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+
+--
+-- AUTO_INCREMENT for table `contacts`
+--
+ALTER TABLE `contacts`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `country`
@@ -434,19 +474,19 @@ ALTER TABLE `country`
 -- AUTO_INCREMENT for table `religion`
 --
 ALTER TABLE `religion`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `sub_category`
 --
 ALTER TABLE `sub_category`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `sub_types`
 --
 ALTER TABLE `sub_types`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `types`

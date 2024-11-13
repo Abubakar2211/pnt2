@@ -23,6 +23,36 @@ include 'db.php';
     <div class="form-container mb-3">
         <form action="" id="contact-form" method="post" enctype="multipart/form-data">
             <div class="row">
+                <div class="mb-6 col-md-6 mb-4">
+                    <?php
+                    $sql_type = "SELECT * FROM types";
+                    $result_type = mysqli_query($con, $sql_type);
+                    ?>
+                    <label for="types" class="form-label">Type:</label>
+                    <select name="types" class="form-control" id="types">
+                        <option value="">Choose a country</option>
+                        <?php 
+                        while($row_type = mysqli_fetch_assoc($result_type)){
+                           echo '<option value="'.$row_type['type'].'">'.$row_type['type'].'</option>';
+                        }
+                        ?>
+                    </select>
+                </div>
+                <div class="mb-6 col-md-6 mb-4">
+                    <?php
+                    $sql_type = "SELECT * FROM sub_types";
+                    $result_type = mysqli_query($con, $sql_type);
+                    ?>
+                    <label for="sub_types" class="form-label">Sub types:</label>
+                    <select name="sub_types" class="form-control" id="sub_types">
+                        <option value="">Choose a country</option>
+                        <?php 
+                        while($row_type = mysqli_fetch_assoc($result_type)){
+                           echo '<option value="'.$row_type['sub_type'].'">'.$row_type['sub_type'].'</option>';
+                        }
+                        ?>
+                    </select>
+                </div>
                 <div class="mb-3 col-md-4 ">
                     <label for="first_name" class="form-label">First Name:</label>
                     <input type="text" class="form-control" id="first_name" placeholder="Enter first name" name="first_name">
@@ -32,25 +62,62 @@ include 'db.php';
                     <input type="text" class="form-control" id="last_name" placeholder="Enter last name" name="last_name">
                 </div>
                 <div class="mb-3 col-md-4 ">
-                    <label for="cell_number" class="form-label">Cell Number</label>
-                    <input type="Number" class="form-control" id="cell_number" placeholder="Enter cell number" name="cell_number">
+                    <label for="designation" class="form-label">Designation:</label>
+                    <input type="text" class="form-control" id="designation" placeholder="Enter designation" name="designation">
                 </div>
                 <div class="mb-3 col-md-4 ">
                     <label for="email_id" class="form-label">Email:</label>
                     <input type="email" class="form-control" id="email_id" placeholder="Enter email" name="email_id">
                 </div>
                 <div class="mb-3 col-md-4 ">
+                    <label for="cell_number" class="form-label">Cell Number</label>
+                    <input type="text" class="form-control" id="cell_number" placeholder="Enter cell number" name="cell_number">
+                </div>
+
+                <div class="mb-3 col-md-4 ">
                     <label for="phone_number" class="form-label">Phone Number</label>
-                    <input type="Number" class="form-control" id="phone_number" placeholder="Enter cell number" name="phone_number">
+                    <input type="text" class="form-control" id="phone_number" placeholder="Enter cell number" name="phone_number">
                 </div>
                 <div class="mb-3 col-md-4 ">
                     <label for="company_name" class="form-label">Company Name:</label>
                     <input type="text" class="form-control" id="company_name" placeholder="Enter company name" name="company_name">
                 </div>
                 <div class="mb-3 col-md-4 ">
-                    <label for="designation" class="form-label">Designation:</label>
-                    <input type="text" class="form-control" id="designation" placeholder="Enter designation" name="designation">
+                    <?php
+                    $sql_category = "SELECT * FROM category";
+                    $result_category = mysqli_query($con, $sql_category);
+                    ?>
+                    <label for="category" class="form-label">Category:</label>
+                    <select name="category" class="form-control" id="category">
+                        <option value="">Choose a category</option>
+                        <?php
+                        while ($row_city = mysqli_fetch_assoc($result_category)) {
+                            echo  '<option value="' . $row_city['category'] . '">' . $row_city['category'] . '</option>';
+                        }
+                        ?>
+                    </select>
                 </div>
+                
+                <div class="mb-3 col-md-4 ">
+                    <?php
+                    $sql_sub_category = "SELECT * FROM sub_category";
+                    $result_sub_category = mysqli_query($con, $sql_sub_category);
+                    ?>
+                    <label for="sub_category" class="form-label">Sub category:</label>
+                    <select name="sub_category" class="form-control" id="sub_category">
+                        <option value="">Choose a sub category</option>
+                        <?php
+                        while ($row_city = mysqli_fetch_assoc($result_sub_category)) {
+                            echo  '<option value="' . $row_city['sub_category'] . '">' . $row_city['sub_category'] . '</option>';
+                        }
+                        ?>
+                    </select>
+                </div>
+                <div class="mb-3 col-md-4 ">
+                    <label for="website" class="form-label">Website:</label>
+                    <input type="text" class="form-control" id="website" placeholder="Enter website" name="website">
+                </div>
+
                 <div class="mb-3 col-md-4 ">
                     <?php
                     $sql_country = "SELECT * FROM country";
@@ -81,6 +148,11 @@ include 'db.php';
                     </select>
 
                 </div>
+
+                <div class="mb-3 col-md-4 ">
+                    <label for="D_O_B" class="form-label">Date of birth:</label>
+                    <input type="date" class="form-control" id="D_O_B" placeholder="Enter Date of bith" name="D_O_B">
+                </div>
                 <div class="mb-3 col-md-4 ">
                     <?php
                     $sql_religion = "SELECT * FROM religion";
@@ -98,38 +170,8 @@ include 'db.php';
 
                 </div>
                 <div class="mb-3 col-md-4 ">
-                    <label for="D_O_B" class="form-label">Date of birth:</label>
-                    <input type="date" class="form-control" id="D_O_B" placeholder="Enter Date of bith" name="D_O_B">
-                </div>
-                <div class="mb-3 col-md-4 ">
-                    <?php
-                    $sql_category = "SELECT * FROM category";
-                    $result_category = mysqli_query($con, $sql_category);
-                    ?>
-                    <label for="category" class="form-label">Category:</label>
-                    <select name="category" class="form-control" id="category">
-                        <option value="">Choose a category</option>
-                        <?php
-                        while ($row_city = mysqli_fetch_assoc($result_category)) {
-                            echo  '<option value="' . $row_city['category'] . '">' . $row_city['category'] . '</option>';
-                        }
-                        ?>
-                    </select>
-                </div>
-                <div class="mb-3 col-md-4 ">
-                    <?php
-                    $sql_sub_category = "SELECT * FROM sub_category";
-                    $result_sub_category = mysqli_query($con, $sql_sub_category);
-                    ?>
-                    <label for="sub_category" class="form-label">Sub category:</label>
-                    <select name="sub_category" class="form-control" id="sub_category">
-                        <option value="">Choose a sub category</option>
-                        <?php
-                        while ($row_city = mysqli_fetch_assoc($result_sub_category)) {
-                            echo  '<option value="' . $row_city['sub_category'] . '">' . $row_city['sub_category'] . '</option>';
-                        }
-                        ?>
-                    </select>
+                    <label for="facebook" class="form-label">Facebook:</label>
+                    <input type="text" class="form-control" id="facebook" placeholder="Enter facebook" name="facebook">
                 </div>
             </div>
 
@@ -140,7 +182,7 @@ include 'db.php';
     </div>
 
     <div class="modal fade" id="update-modal" tabindex="-1" aria-labelledby="update-modal" aria-hidden="true">
-        <div class="modal-dialog">
+        <div class="modal-dialog modal-xl">
             <div class="modal-content">
                 <!-- Content will be dynamically loaded here -->
             </div>
@@ -185,7 +227,7 @@ include 'db.php';
                 type: "POST",
                 success: function(data) {
                     $('#contact-table').html(data);
-                    $('#contactsTable').DataTable(); 
+                    $('#contactsTable').DataTable();
                 }
             });
         }
@@ -194,24 +236,27 @@ include 'db.php';
 
         $('#contact-submit').on("click", function(e) {
             e.preventDefault();
-
+            var types = $("#types").val();
+            var sub_types = $("#sub_types").val();
             var first_name = $("#first_name").val();
             var last_name = $("#last_name").val();
-            var cell_number = $("#cell_number").val();
+            var designation = $("#designation").val();
             var email_id = $("#email_id").val();
+            var cell_number = $("#cell_number").val();
             var phone_number = $("#phone_number").val();
             var company_name = $("#company_name").val();
-            var designation = $("#designation").val();
-            var country_field = $("#country-field").val(); // Fixed variable name
-            var city = $("#city").val();
-            var religion = $("#religion").val();
-            var D_O_B = $("#D_O_B").val();
             var category = $("#category").val();
             var sub_category = $("#sub_category").val();
+            var website = $("#website").val();
+            var country_field = $("#country-field").val(); // Fixed variable name
+            var city = $("#city").val();
+            var D_O_B = $("#D_O_B").val();
+            var religion = $("#religion").val();
+            var facebook = $("#facebook").val();
 
             // Basic Validation
-            if (first_name == "" || last_name == "" || cell_number == "" || email_id == "" || phone_number == "" || company_name == "" || designation == "" || country_field == "" ||
-                city == "" || religion == "" || D_O_B == "" || category == "" || sub_category == "") {
+            if (types == "" ||sub_types == "" || first_name == "" || last_name == ""  || designation == "" || email_id == "" || cell_number == "" || phone_number == "" || company_name == "" || category == "" || sub_category == ""
+            || website == "" || country_field == "" || city == "" ||  D_O_B == "" || religion == "" || facebook == "") {
                 $('#response').fadeIn();
                 $('#response').removeClass('alert alert-primary').addClass('alert alert-danger').html('All fields are required');
             } else {
@@ -220,8 +265,8 @@ include 'db.php';
                     type: "POST",
                     data: $('#contact-form').serialize(),
                     success: function(data) {
-                        $('#contact-form')[0].reset(); 
-                        loadTable(); 
+                        $('#contact-form')[0].reset();
+                        loadTable();
                         $('#response').fadeIn();
                         $('#response').removeClass('alert alert-danger').addClass('alert alert-primary').html(data);
                         setTimeout(function() {

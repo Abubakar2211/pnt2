@@ -1,66 +1,7 @@
-
-
-
-<!-- Include necessary JavaScript -->
-<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
-<script src="https://cdn.datatables.net/1.10.25/js/jquery.dataTables.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.1.3/js/bootstrap.bundle.min.js"></script>
-
-<script>
-    $(document).ready(function() {
-        // Initialize DataTable
-        $('#contactsTable').DataTable();
-    });
-
-    // Function to handle showing details modal
-    function showDetailsModal(contactId) {
-        // AJAX request to fetch contact details
-        $.ajax({
-            url: 'fetch_contact.php',
-            type: 'post',
-            data: { id: contactId },
-            success: function(response) {
-                $('#contactDetails').html(response);
-                $('#detailsModal').modal('show');
-            },
-            error: function(xhr, ajaxOptions, thrownError) {
-                console.error('Error fetching contact details:', thrownError);
-            }
-        });
-    }
-
-    // Function to handle contact deletion
-    function deleteContact(contactId) {
-        // Assuming you have a separate delete script
-        if (confirm('Are you sure you want to delete this contact?')) {
-            window.location.href = 'delete.php?id=' + contactId;
-        }
-    }
-</script>
-
-<script>
-    $(document).ready(function() {
-        // Fetch country data from REST Countries API
-        $.ajax({
-            url: 'https://restcountries.com/v3.1/all',
-            dataType: 'json',
-            success: function(data) {
-                // Populate the country dropdown with fetched data
-                data.forEach(function(country) {
-                    $('#country').append(`<option value="${country.name.common}">${country.name.common}</option>`);
-                });
-            },
-            error: function() {
-                console.log('Error fetching country data');
-            }
-        });
-    });
-</script>
-
 <script>
     document.addEventListener('DOMContentLoaded', function () {
         const items = [
-            'Admin', 'Party', 'Emails Marketing', 'SEO', 'Social Media', 'Sales', 'Projects', 'Accounts', 'HR', 'Trainings'
+            'Admin', 'Contacts', 'Emails Marketing', 'SEO', 'Social Media', 'Sales', 'Projects', 'Accounts', 'HR', 'Trainings'
         ];
         const maxVisibleItems = 7;
         const navbar = document.getElementById('navbar-items');
@@ -153,7 +94,10 @@
                 a.href = subItem.href;
                 a.textContent = subItem.text;
                 a.addEventListener('click', function (event) {
-                    // Ensure default link behavior
+                    event.preventDefault();
+                    if (subItem.text === 'Settings') {
+                        showNestedDropdown();
+                    }
                 });
                 horizontalDiv.appendChild(a);
             });
@@ -178,6 +122,31 @@
             subItem.appendChild(arrow);
         }
 
+        function showNestedDropdown() {
+            const nestedDiv = document.createElement('div');
+            nestedDiv.className = 'nested-dropdown';
+
+            const nestedLinks = [   
+                { text: 'Type', href: 'types.php' },
+                { text: 'Sub type', href: 'sub-types.php' }
+            ];
+
+            nestedLinks.forEach(linkData => {
+                const a = document.createElement('a');
+                a.href = linkData.href;
+                a.textContent = linkData.text;
+                nestedDiv.appendChild(a);
+            });
+
+            horizontalDiv.appendChild(nestedDiv);
+            nestedDiv.style.position = 'absolute';
+            nestedDiv.style.top = '100%';
+            nestedDiv.style.left = '0';
+            nestedDiv.style.backgroundColor = '#fff';
+            nestedDiv.style.border = '1px solid #ccc';
+            nestedDiv.style.padding = '10px';
+        }
+
         function getSubItems(item) {
             // Define sub-items for each main item with hrefs
             switch (item) {
@@ -188,7 +157,7 @@
                         { text: 'Create Lists', href: 'email-listings.php' },
                         { text: 'Messaging', href: 'messaging.php' },
                         { text: 'Reports', href: 'reports.php' },
-                        { text: 'Settings', href: 'settings.php' }
+                    
                     ];
                 case 'SEO':
                     return [
@@ -250,12 +219,11 @@
                         { text: 'Users', href: 'users.php' },
                         { text: 'Settings', href: 'settings.php' }
                     ];
-                case 'Party':
+                case 'Contacts':
                     return [
-                        { text: 'Clients', href: 'clients.php' },
-                        { text: 'Team', href: 'team.php' },
-                        { text: 'Suppliers', href: 'suppliers.php' },
-                        { text: 'Settings', href: 'settings.php' }
+                        { text: 'Add-contacts', href: 'add-contacts.php' },
+                        { text: 'Settings', href: 'setting.php' },
+                        { text: 'Status', href: 'status.php' }
                     ];
                 default:
                     return [];
@@ -264,6 +232,3 @@
 
     });
 </script>
-
-</body>
-</html>
