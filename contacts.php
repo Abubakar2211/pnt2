@@ -296,50 +296,50 @@ include 'db.php';
                             $(element).closest("tr").fadeOut();
                             loadTable();
                         } else {
-                            $("#error_message").html("Can't Delete Record.").slideDown();
+                            $("#error_message").html("Can't Delete Record .").slideDown();
                             $("#success_message").slideUp();
                         }
                     }
                 })
             }
         });
-        $(document).on("click", ".edit-btn", function() {
-            var contactId = $(this).data("eid");
+            $(document).on("click", ".edit-btn", function() {
+                var contactId = $(this).data("eid");
 
-            $("#update-modal .modal-content").html("");
-            $("#update-modal").modal('show');
+                $("#update-modal .modal-content").html("");
+                $("#update-modal").modal('show');
 
-            $.ajax({
-                url: "contacts-update-form.php",
-                type: "POST",
-                data: {
-                    id: contactId
-                },
-                success: function(data) {
-                    $("#update-modal .modal-content").html(data);
-                },
+                $.ajax({
+                    url: "contacts-update-form.php",
+                    type: "POST",
+                    data: {
+                        id: contactId
+                    },
+                    success: function(data) {
+                        $("#update-modal .modal-content").html(data);
+                    },
 
+                });
             });
-        });
 
-        $(document).on("click", "#save_button", function() {
-            var formData = $('#update-form').serialize();
+            $(document).on("click", "#save_button", function() {
+                var formData = $('#update-form').serialize();
 
-            $.ajax({
-                url: "contacts-update.php",
-                type: "POST",
-                data: formData,
-                success: function(data) {
-                    if (data == 1) {
-                        $("#update-modal").modal('hide');
-                        loadTable();
-                    } else {
-                        alert("Error updating contact data: " + data);
-                    }
-                },
+                $.ajax({
+                    url: "contacts-update.php",
+                    type: "POST",
+                    data: formData,
+                    success: function(data) {
+                        if (data == 1) {
+                            $("#update-modal").modal('hide');
+                            loadTable();
+                        } else {
+                            alert("Error updating contact data: " + data);
+                        }
+                    },
 
+                });
             });
-        });
 
     });
 </script>

@@ -8,7 +8,7 @@ $output = "";
 
 if (mysqli_num_rows($query) > 0) {
     $row = mysqli_fetch_assoc($query);
-    $output .= "<form id='update-form'>
+    $output .= "<form id='update-form' >
                     <div class='modal-header'>
                         <h5 class='modal-title' id='exampleModalLabel'>Update User Detail</h5>
                         <button type='button' class='btn-close' data-bs-dismiss='modal' aria-label='Close'></button>
@@ -150,6 +150,11 @@ if (mysqli_num_rows($query) > 0) {
     }
 
     $output .= "</select></div>
+                <div class='mb-3 col-md-6'>
+                    <label for='facebook' class='form-label'>Facebook:</label>
+                    <input type='text' class='form-control' id='facebook' placeholder='Enter facebook' value='{$row['facebook']}' name='facebook'>
+                </div>
+
                 </div>
                 </div>
                 <div class='modal-footer'>
@@ -157,6 +162,7 @@ if (mysqli_num_rows($query) > 0) {
                     <button type='button' class='btn btn-secondary' data-bs-dismiss='modal'>Close</button>
                 </div>
                 </form>";
+
 }
 echo $output;
 ?>

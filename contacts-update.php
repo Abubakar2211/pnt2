@@ -4,6 +4,8 @@ include "db.php";
 // Handle form submission to update contact details
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $contactId = mysqli_real_escape_string($con, $_POST["id"]);
+    $type = mysqli_real_escape_string($con, $_POST['type']);
+    $sub_type = mysqli_real_escape_string($con, $_POST['sub_type']);
     $first_name = mysqli_real_escape_string($con, $_POST['first_name']);
     $last_name = mysqli_real_escape_string($con, $_POST['last_name']);
     $designation = mysqli_real_escape_string($con, $_POST['designation']);
@@ -22,6 +24,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     // SQL query to update contact information
     $sql = "UPDATE contacts SET 
+        type = '{$type}', 
+        sub_type = '{$sub_type}', 
         first_name = '{$first_name}', 
         last_name = '{$last_name}', 
         designation = '{$designation}', 
