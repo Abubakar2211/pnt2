@@ -8,7 +8,7 @@ $output = "";
 
 if (mysqli_num_rows($query) > 0) {
     $row = mysqli_fetch_assoc($query);
-    $output .= "<form id='update-form' >
+    $output .= "<form id='update-form' method='POST'>
                     <div class='modal-header'>
                         <h5 class='modal-title' id='exampleModalLabel'>Update User Detail</h5>
                         <button type='button' class='btn-close' data-bs-dismiss='modal' aria-label='Close'></button>
@@ -123,7 +123,6 @@ if (mysqli_num_rows($query) > 0) {
                     <select name='city' class='form-control' id='city'>
                         <option value=''>Choose a city</option>";
 
-    // Fetch cities
     $sql_city = "SELECT * FROM city";
     $result_city = mysqli_query($con, $sql_city) or die("SQL Query Failed: " . mysqli_error($con));
     while ($row_city = mysqli_fetch_assoc($result_city)) {
@@ -158,7 +157,7 @@ if (mysqli_num_rows($query) > 0) {
                 </div>
                 </div>
                 <div class='modal-footer'>
-                    <button type='submit' class='btn btn-primary' id='submit'>Submit</button>
+                    <button type='submit' class='btn btn-primary' id='save_button'>Submit</button>
                     <button type='button' class='btn btn-secondary' data-bs-dismiss='modal'>Close</button>
                 </div>
                 </form>";

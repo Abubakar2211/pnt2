@@ -9,7 +9,9 @@ include 'db.php';
 <!-- Include Bootstrap CSS if using Bootstrap -->
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.1.3/css/bootstrap.min.css">
 <!-- Font Icons -->
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css" integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
+    integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg=="
+    crossorigin="anonymous" referrerpolicy="no-referrer" />
 
 <div class="content container">
     <div class="list-header d-flex justify-content-between align-items-center my-4">
@@ -31,9 +33,9 @@ include 'db.php';
                     <label for="types" class="form-label">Type:</label>
                     <select name="types" class="form-control" id="types">
                         <option value="">Choose a country</option>
-                        <?php 
-                        while($row_type = mysqli_fetch_assoc($result_type)){
-                           echo '<option value="'.$row_type['type'].'">'.$row_type['type'].'</option>';
+                        <?php
+                        while ($row_type = mysqli_fetch_assoc($result_type)) {
+                            echo '<option value="' . $row_type['type'] . '">' . $row_type['type'] . '</option>';
                         }
                         ?>
                     </select>
@@ -46,24 +48,27 @@ include 'db.php';
                     <label for="sub_types" class="form-label">Sub types:</label>
                     <select name="sub_types" class="form-control" id="sub_types">
                         <option value="">Choose a country</option>
-                        <?php 
-                        while($row_type = mysqli_fetch_assoc($result_type)){
-                           echo '<option value="'.$row_type['sub_type'].'">'.$row_type['sub_type'].'</option>';
+                        <?php
+                        while ($row_type = mysqli_fetch_assoc($result_type)) {
+                            echo '<option value="' . $row_type['sub_type'] . '">' . $row_type['sub_type'] . '</option>';
                         }
                         ?>
                     </select>
                 </div>
                 <div class="mb-3 col-md-4 ">
                     <label for="first_name" class="form-label">First Name:</label>
-                    <input type="text" class="form-control" id="first_name" placeholder="Enter first name" name="first_name">
+                    <input type="text" class="form-control" id="first_name" placeholder="Enter first name"
+                        name="first_name">
                 </div>
                 <div class="mb-3 col-md-4 ">
                     <label for="last_name" class="form-label">Last Name:</label>
-                    <input type="text" class="form-control" id="last_name" placeholder="Enter last name" name="last_name">
+                    <input type="text" class="form-control" id="last_name" placeholder="Enter last name"
+                        name="last_name">
                 </div>
                 <div class="mb-3 col-md-4 ">
                     <label for="designation" class="form-label">Designation:</label>
-                    <input type="text" class="form-control" id="designation" placeholder="Enter designation" name="designation">
+                    <input type="text" class="form-control" id="designation" placeholder="Enter designation"
+                        name="designation">
                 </div>
                 <div class="mb-3 col-md-4 ">
                     <label for="email_id" class="form-label">Email:</label>
@@ -71,16 +76,19 @@ include 'db.php';
                 </div>
                 <div class="mb-3 col-md-4 ">
                     <label for="cell_number" class="form-label">Cell Number</label>
-                    <input type="text" class="form-control" id="cell_number" placeholder="Enter cell number" name="cell_number">
+                    <input type="text" class="form-control" id="cell_number" placeholder="Enter cell number"
+                        name="cell_number">
                 </div>
 
                 <div class="mb-3 col-md-4 ">
                     <label for="phone_number" class="form-label">Phone Number</label>
-                    <input type="text" class="form-control" id="phone_number" placeholder="Enter cell number" name="phone_number">
+                    <input type="text" class="form-control" id="phone_number" placeholder="Enter cell number"
+                        name="phone_number">
                 </div>
                 <div class="mb-3 col-md-4 ">
                     <label for="company_name" class="form-label">Company Name:</label>
-                    <input type="text" class="form-control" id="company_name" placeholder="Enter company name" name="company_name">
+                    <input type="text" class="form-control" id="company_name" placeholder="Enter company name"
+                        name="company_name">
                 </div>
                 <div class="mb-3 col-md-4 ">
                     <?php
@@ -92,12 +100,12 @@ include 'db.php';
                         <option value="">Choose a category</option>
                         <?php
                         while ($row_city = mysqli_fetch_assoc($result_category)) {
-                            echo  '<option value="' . $row_city['category'] . '">' . $row_city['category'] . '</option>';
+                            echo '<option value="' . $row_city['category'] . '">' . $row_city['category'] . '</option>';
                         }
                         ?>
                     </select>
                 </div>
-                
+
                 <div class="mb-3 col-md-4 ">
                     <?php
                     $sql_sub_category = "SELECT * FROM sub_category";
@@ -108,7 +116,7 @@ include 'db.php';
                         <option value="">Choose a sub category</option>
                         <?php
                         while ($row_city = mysqli_fetch_assoc($result_sub_category)) {
-                            echo  '<option value="' . $row_city['sub_category'] . '">' . $row_city['sub_category'] . '</option>';
+                            echo '<option value="' . $row_city['sub_category'] . '">' . $row_city['sub_category'] . '</option>';
                         }
                         ?>
                     </select>
@@ -142,7 +150,7 @@ include 'db.php';
                         <option value="">Choose a city</option>
                         <?php
                         while ($row_city = mysqli_fetch_assoc($result_city)) {
-                            echo  '<option value="' . $row_city['city'] . '">' . $row_city['city'] . '</option>';
+                            echo '<option value="' . $row_city['city'] . '">' . $row_city['city'] . '</option>';
                         }
                         ?>
                     </select>
@@ -163,7 +171,7 @@ include 'db.php';
                         <option value="">Choose a religion</option>
                         <?php
                         while ($row_city = mysqli_fetch_assoc($result_religion)) {
-                            echo  '<option value="' . $row_city['religion'] . '">' . $row_city['religion'] . '</option>';
+                            echo '<option value="' . $row_city['religion'] . '">' . $row_city['religion'] . '</option>';
                         }
                         ?>
                     </select>
@@ -218,23 +226,22 @@ include 'db.php';
 <script src="https://cdn.datatables.net/1.10.25/js/jquery.dataTables.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.1.3/js/bootstrap.bundle.min.js"></script>
 <script>
-    $(document).ready(function() {
+    $(document).ready(function () {
         $('#contactsTable').DataTable();
 
         function loadTable() {
             $.ajax({
                 url: "contacts-load.php",
                 type: "POST",
-                success: function(data) {
+                success: function (data) {
                     $('#contact-table').html(data);
                     $('#contactsTable').DataTable();
                 }
             });
         }
-
         loadTable();
 
-        $('#contact-submit').on("click", function(e) {
+        $('#contact-submit').on("click", function (e) {
             e.preventDefault();
             var types = $("#types").val();
             var sub_types = $("#sub_types").val();
@@ -255,8 +262,8 @@ include 'db.php';
             var facebook = $("#facebook").val();
 
             // Basic Validation
-            if (types == "" ||sub_types == "" || first_name == "" || last_name == ""  || designation == "" || email_id == "" || cell_number == "" || phone_number == "" || company_name == "" || category == "" || sub_category == ""
-            || website == "" || country_field == "" || city == "" ||  D_O_B == "" || religion == "" || facebook == "") {
+            if (types == "" || sub_types == "" || first_name == "" || last_name == "" || designation == "" || email_id == "" || cell_number == "" || phone_number == "" || company_name == "" || category == "" || sub_category == ""
+                || website == "" || country_field == "" || city == "" || D_O_B == "" || religion == "" || facebook == "") {
                 $('#response').fadeIn();
                 $('#response').removeClass('alert alert-primary').addClass('alert alert-danger').html('All fields are required');
             } else {
@@ -264,16 +271,16 @@ include 'db.php';
                     url: "contacts-insert.php",
                     type: "POST",
                     data: $('#contact-form').serialize(),
-                    success: function(data) {
+                    success: function (data) {
                         $('#contact-form')[0].reset();
                         loadTable();
                         $('#response').fadeIn();
                         $('#response').removeClass('alert alert-danger').addClass('alert alert-primary').html(data);
-                        setTimeout(function() {
+                        setTimeout(function () {
                             $('#response').fadeOut("slow");
                         }, 4000);
                     },
-                    error: function(xhr, status, error) {
+                    error: function (xhr, status, error) {
                         $('#response').fadeIn();
                         $('#response').removeClass('alert alert-primary').addClass('alert alert-danger').html('Error occurred, try again!');
                     }
@@ -281,7 +288,7 @@ include 'db.php';
             }
         });
 
-        $(document).on("click", ".delete-btn", function() {
+        $(document).on("click", ".delete-btn", function () {
             if (confirm("Do you really want to delete this record")) {
                 var contactId = $(this).data('id');
                 var element = this;
@@ -291,7 +298,7 @@ include 'db.php';
                     data: {
                         id: contactId
                     },
-                    success: function(data) {
+                    success: function (data) {
                         if (data == 1) {
                             $(element).closest("tr").fadeOut();
                             loadTable();
@@ -303,43 +310,45 @@ include 'db.php';
                 })
             }
         });
-            $(document).on("click", ".edit-btn", function() {
-                var contactId = $(this).data("eid");
+        $(document).on("click", ".edit-btn", function () {
+            var contactId = $(this).data("eid");
 
-                $("#update-modal .modal-content").html("");
-                $("#update-modal").modal('show');
+            $("#update-modal .modal-content").html("");
+            $("#update-modal").modal('show');
 
-                $.ajax({
-                    url: "contacts-update-form.php",
-                    type: "POST",
-                    data: {
-                        id: contactId
-                    },
-                    success: function(data) {
-                        $("#update-modal .modal-content").html(data);
-                    },
+            $.ajax({
+                url: "contacts-update-form.php",
+                type: "POST",
+                data: {
+                    id: contactId
+                },
+                success: function (data) {
+                    $("#update-modal .modal-content").html(data);
+                },
 
-                });
             });
+        });
 
-            $(document).on("click", "#save_button", function() {
-                var formData = $('#update-form').serialize();
+        $(document).on("click", "#save_button", function () {
+            var formData = $('#update-form').serialize();
 
-                $.ajax({
-                    url: "contacts-update.php",
-                    type: "POST",
-                    data: formData,
-                    success: function(data) {
-                        if (data == 1) {
-                            $("#update-modal").modal('hide');
-                            loadTable();
-                        } else {
-                            alert("Error updating contact data: " + data);
-                        }
-                    },
+            $.ajax({
+                url: "contacts-update.php",
+                type: "POST",
+                data: formData,
+                success: function (data) {
+                    if (data == 1) {
+                        $("#update-modal").modal('hide');
+                        loadTable();
+                    } else {
+                        alert("Error updating type data: " + data);
+                    }
+                },
 
-                });
             });
+        });
 
     });
+
+
 </script>
