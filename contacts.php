@@ -260,10 +260,11 @@ include 'db.php';
             var D_O_B = $("#D_O_B").val();
             var religion = $("#religion").val();
             var facebook = $("#facebook").val();
+            var status = $("#status").val();
 
             // Basic Validation
             if (types == "" || sub_types == "" || first_name == "" || last_name == "" || designation == "" || email_id == "" || cell_number == "" || phone_number == "" || company_name == "" || category == "" || sub_category == ""
-                || website == "" || country_field == "" || city == "" || D_O_B == "" || religion == "" || facebook == "") {
+                || website == "" || country_field == "" || city == "" || D_O_B == "" || religion == "" || facebook == "" || status == "") {
                 $('#response').fadeIn();
                 $('#response').removeClass('alert alert-primary').addClass('alert alert-danger').html('All fields are required');
             } else {
@@ -329,7 +330,8 @@ include 'db.php';
             });
         });
 
-        $(document).on("click", "#save_button", function () {
+        $(document).on("click", "#save_button", function ( e) {
+            e.preventDefault();
             var formData = $('#update-form').serialize();
 
             $.ajax({

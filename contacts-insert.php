@@ -1,5 +1,5 @@
 <?php
-include 'db.php'; 
+include 'db.php';
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $types = mysqli_real_escape_string($con, $_POST['types']);
@@ -20,13 +20,23 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $religion = mysqli_real_escape_string($con, $_POST['religion']);
     $facebook = mysqli_real_escape_string($con, $_POST['facebook']);
 
-    $query = "INSERT INTO contacts (type,sub_type,first_name, last_name,  designation, email_id, cell_number,  phone_number, company_name , category, sub_category , website , country, city, D_O_B, religion , facebook , status)
-              VALUES ('$types','$sub_types','$first_name', '$last_name', '$designation', '$email_id','$cell_number',  '$phone_number', '$company_name','$category','$sub_category', '$website', '$country_field', '$city' ,'$D_O_B', '$religion' , '$facebook' , 'Active')";
+    $statusQuery = "SELECT status FROM contacts_status WHERE applied = 'Applied' LIMIT 1";
+    $statusResult = mysqli_query($con, $statusQuery);
+    $statusRow = mysqli_fetch_assoc($statusResult);
 
-    if (mysqli_query($con, $query)) {
-        echo "contact added successfully.";
+    if ($statusRow) {
+        $status = $statusRow['status']; 
+
+        $query = "INSERT INTO contacts (type, sub_type, first_name, last_name, designation, email_id, cell_number, phone_number, company_name, category, sub_category, website, country, city, D_O_B, religion, facebook, status)
+                  VALUES ('$types', '$sub_types', '$first_name', '$last_name', '$designation', '$email_id', '$cell_number', '$phone_number', '$company_name', '$category', '$sub_category', '$website', '$country_field', '$city', '$D_O_B', '$religion', '$facebook', '$status')";
+
+        if (mysqli_query($con, $query)) {
+            echo "Contact added successfully.";
+        } else {
+            echo "Error: " . mysqli_error($con);
+        }
     } else {
-        echo "Error: " . mysqli_error($con); // Log or display error for debugging
+        echo "Error: No applied status found in the database.";
     }
 }
 ?>
