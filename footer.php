@@ -253,7 +253,9 @@
                         case 'Contacts':
                             return [
                                 { text: 'Add Contacts', href: 'add-contacts.php' },
-                                { text: 'Settings', href: 'setting.php' },
+                                { text: 'Contacts', href: 'contacts.php' },
+                                { text: 'Types', href: 'types.php' },
+                                { text: 'Sub types', href: 'sub-types.php' },
                                 { text: 'Status', href: 'contacts-status.php' },
                             ];
                         default:

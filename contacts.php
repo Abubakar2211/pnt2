@@ -226,14 +226,14 @@ include 'db.php';
 <script src="https://cdn.datatables.net/1.10.25/js/jquery.dataTables.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.1.3/js/bootstrap.bundle.min.js"></script>
 <script>
-    $(document).ready(function () {
+    $(document).ready(function() {
         $('#contactsTable').DataTable();
 
         function loadTable() {
             $.ajax({
                 url: "contacts-load.php",
                 type: "POST",
-                success: function (data) {
+                success: function(data) {
                     $('#contact-table').html(data);
                     $('#contactsTable').DataTable();
                 }
@@ -241,7 +241,7 @@ include 'db.php';
         }
         loadTable();
 
-        $('#contact-submit').on("click", function (e) {
+        $('#contact-submit').on("click", function(e) {
             e.preventDefault();
             var types = $("#types").val();
             var sub_types = $("#sub_types").val();
@@ -260,11 +260,10 @@ include 'db.php';
             var D_O_B = $("#D_O_B").val();
             var religion = $("#religion").val();
             var facebook = $("#facebook").val();
-            var status = $("#status").val();
 
             // Basic Validation
-            if (types == "" || sub_types == "" || first_name == "" || last_name == "" || designation == "" || email_id == "" || cell_number == "" || phone_number == "" || company_name == "" || category == "" || sub_category == ""
-                || website == "" || country_field == "" || city == "" || D_O_B == "" || religion == "" || facebook == "" || status == "") {
+            if (types === "" || sub_types === "" || first_name === "" || last_name === "" || designation === "" || email_id === "" || cell_number === "" || phone_number === "" || company_name === "" || category === "" || sub_category === "" ||
+                website === "" || country_field === "" || city === "" || D_O_B === "" || religion === "" || facebook === "") {
                 $('#response').fadeIn();
                 $('#response').removeClass('alert alert-primary').addClass('alert alert-danger').html('All fields are required');
             } else {
@@ -272,16 +271,16 @@ include 'db.php';
                     url: "contacts-insert.php",
                     type: "POST",
                     data: $('#contact-form').serialize(),
-                    success: function (data) {
+                    success: function(data) {
                         $('#contact-form')[0].reset();
                         loadTable();
                         $('#response').fadeIn();
                         $('#response').removeClass('alert alert-danger').addClass('alert alert-primary').html(data);
-                        setTimeout(function () {
+                        setTimeout(function() {
                             $('#response').fadeOut("slow");
                         }, 4000);
                     },
-                    error: function (xhr, status, error) {
+                    error: function(xhr, status, error) {
                         $('#response').fadeIn();
                         $('#response').removeClass('alert alert-primary').addClass('alert alert-danger').html('Error occurred, try again!');
                     }
@@ -289,7 +288,7 @@ include 'db.php';
             }
         });
 
-        $(document).on("click", ".delete-btn", function () {
+        $(document).on("click", ".delete-btn", function() {
             if (confirm("Do you really want to delete this record")) {
                 var contactId = $(this).data('id');
                 var element = this;
@@ -299,7 +298,7 @@ include 'db.php';
                     data: {
                         id: contactId
                     },
-                    success: function (data) {
+                    success: function(data) {
                         if (data == 1) {
                             $(element).closest("tr").fadeOut();
                             loadTable();
@@ -311,7 +310,7 @@ include 'db.php';
                 })
             }
         });
-        $(document).on("click", ".edit-btn", function () {
+        $(document).on("click", ".edit-btn", function() {
             var contactId = $(this).data("eid");
 
             $("#update-modal .modal-content").html("");
@@ -323,14 +322,14 @@ include 'db.php';
                 data: {
                     id: contactId
                 },
-                success: function (data) {
+                success: function(data) {
                     $("#update-modal .modal-content").html(data);
                 },
 
             });
         });
 
-        $(document).on("click", "#save_button", function ( e) {
+        $(document).on("click", "#save_button", function(e) {
             e.preventDefault();
             var formData = $('#update-form').serialize();
 
@@ -338,7 +337,7 @@ include 'db.php';
                 url: "contacts-update.php",
                 type: "POST",
                 data: formData,
-                success: function (data) {
+                success: function(data) {
                     if (data == 1) {
                         $("#update-modal").modal('hide');
                         loadTable();
@@ -351,6 +350,24 @@ include 'db.php';
         });
 
     });
+    $(document).ready(function() {
+        function loadFilteredData() {
+            $.ajax({
+                url: 'contacts-fetch-table.php', // Updated backend script
+                type: 'POST',
+                success: function(response) {
+                    $('#contactsTableContainer').html(response); // Display the filtered table
+                    $('#contactsTable').DataTable(); // Reinitialize DataTable after inserting the table
+                }
+            });
+        }
 
+        // Call the function on page load
+        loadFilteredData();
 
+        // Trigger when filters are applied
+        $('#type, #sub_type').on('change', function() {
+            loadFilteredData(); // Re-fetch filtered data when filters change
+        });
+    });
 </script>

@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Nov 13, 2024 at 12:18 PM
+-- Generation Time: Nov 14, 2024 at 10:54 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -18,7 +18,7 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Database: `pnterp`
+-- Database: `pnt2`
 --
 
 -- --------------------------------------------------------
@@ -176,7 +176,30 @@ CREATE TABLE `contacts` (
 --
 
 INSERT INTO `contacts` (`id`, `type`, `sub_type`, `first_name`, `last_name`, `designation`, `email_id`, `cell_number`, `phone_number`, `company_name`, `category`, `sub_category`, `website`, `country`, `city`, `D_O_B`, `religion`, `facebook`, `status`, `date_time`) VALUES
-(2, 'Supplier', 'aaaa', 'Abubakar', 'Baig', 'aasss', 'abubakar192005@gmail.com', '0312-2082355', '03122082355', 'fd', 'Abubakar', 'Software engineer', '', 'Pakistan', 'Karachi', '2024-11-13', 'aaa', '', 'Active', '2024-11-13 03:00:16');
+(2, 'Supplier', 'aaaa', 'Abubakar', 'Baig', 'aasss', 'abubakar192005@gmail.com', '0312-2082355', '03122082355', 'fd', 'Abubakar', 'Software engineer', '', 'Pakistan', 'Karachi', '2024-11-13', 'aaa', '', 'Active', '2024-11-13 03:00:16'),
+(5, 'Supplier', 'aaaa', 'Abubakar', 'baig', 's', 'Abubakar192005@gamil.com', 'sssssss', '03122082355', 'Abubakar', 'Abubakar', 'Software engineer', 'sss', 'Pakistan', 'Karachi', '2024-11-15', 'aaa', 'sss', 'dfsdf', '2024-11-15 02:40:03');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `contacts_status`
+--
+
+CREATE TABLE `contacts_status` (
+  `id` int(11) NOT NULL,
+  `status` varchar(255) NOT NULL,
+  `applied` varchar(255) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `contacts_status`
+--
+
+INSERT INTO `contacts_status` (`id`, `status`, `applied`) VALUES
+(1, 'sss', 'Unapplied'),
+(5, 'ssss', 'Applied'),
+(6, 'ss', 'Unapplied'),
+(7, 'dfsdf', 'Unapplied');
 
 -- --------------------------------------------------------
 
@@ -347,7 +370,7 @@ CREATE TABLE `types` (
 --
 
 INSERT INTO `types` (`id`, `type`) VALUES
-(1, 'Teams'),
+(1, ''),
 (3, 'Team'),
 (4, 'Supplier'),
 (5, 'Contact');
@@ -384,6 +407,12 @@ ALTER TABLE `clients`
 -- Indexes for table `contacts`
 --
 ALTER TABLE `contacts`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `contacts_status`
+--
+ALTER TABLE `contacts_status`
   ADD PRIMARY KEY (`id`);
 
 --
@@ -462,7 +491,13 @@ ALTER TABLE `city`
 -- AUTO_INCREMENT for table `contacts`
 --
 ALTER TABLE `contacts`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+
+--
+-- AUTO_INCREMENT for table `contacts_status`
+--
+ALTER TABLE `contacts_status`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT for table `country`

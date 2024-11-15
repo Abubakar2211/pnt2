@@ -45,7 +45,7 @@ if (mysqli_num_rows($result) > 0) {
                 <!-- Content will be dynamically loaded here -->
             </div>
         </div>
-    </div>
+    </div>  
 <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
 <script>
      $(document).on("click", ".delete-btn", function () {
