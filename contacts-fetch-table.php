@@ -4,12 +4,12 @@ include "db.php";
 $type = isset($_POST['type']) ? $_POST['type'] : '';
 $sub_type = isset($_POST['sub_type']) ? $_POST['sub_type'] : '';
 
+// Prepare SQL with optional filters
 $sql = "SELECT * FROM contacts WHERE 1=1";
-
-if ($type != '') {
+if (!empty($type)) {
     $sql .= " AND type = '" . mysqli_real_escape_string($con, $type) . "'";
 }
-if ($sub_type != '') {
+if (!empty($sub_type)) {
     $sql .= " AND sub_type = '" . mysqli_real_escape_string($con, $sub_type) . "'";
 }
 
@@ -29,6 +29,7 @@ $output = '<table id="contactsTable" class="table table-striped table-bordered">
                 </thead>
                 <tbody>';
 
+// Loop through the results and generate the table rows
 if (mysqli_num_rows($result) > 0) {
     $i = 1;
     while ($row = mysqli_fetch_assoc($result)) {
@@ -38,36 +39,34 @@ if (mysqli_num_rows($result) > 0) {
             <td>" . htmlspecialchars($row['first_name']) . "</td>
             <td>" . htmlspecialchars($row['cell_number']) . "</td>
             <td>" . htmlspecialchars($row['email_id']) . "</td>";
-        $output .= "<td>
-            <select name='status' class='status-dropdown form-control' data-id='{$row['id']}'>";
-
+        
+        // Generate the status dropdown
         $status_query = "SELECT * FROM contacts_status";
         $status_result = mysqli_query($con, $status_query);
-
-        if (mysqli_num_rows($status_result) > 0) {
-            while ($status_row = mysqli_fetch_assoc($status_result)) {
-                $selected = $row['status'] == $status_row['status'] ? 'selected' : '';
-                $output .= "<option value='" . htmlspecialchars($status_row['status']) . "' $selected>" . htmlspecialchars($status_row['status']) . "</option>";
-            }
-        } else {
-            $output .= "<option value=''>No Status Found</option>";
+        
+        $output .= "<td>
+            <select name='status' class='status-dropdown form-control' data-id='{$row['id']}'>";
+        
+        while ($status_row = mysqli_fetch_assoc($status_result)) {
+            $selected = ($row['status'] == $status_row['status']) ? 'selected' : '';
+            $output .= "<option value='" . htmlspecialchars($status_row['status']) . "' $selected>" . htmlspecialchars($status_row['status']) . "</option>";
         }
-
+        
         $output .= "</select>
         </td>";
 
-
-
-        $output .= "
-            <td class='d-flex justify-content-around'>
-                <button class='edit-btn btn btn-sm' data-eid='{$row['id']}'><i class='fa-regular fa-pen-to-square'></i></button>
-                <button class='delete-btn btn btn-sm' data-id='{$row['id']}'><i class='fa-solid fa-delete-left'></i></button>
-            </td>
+        // Add action buttons
+        $output .= "<td class='d-flex justify-content-around'>
+            <button class='edit-btn btn btn-sm' data-eid='{$row['id']}'><i class='fa-regular fa-pen-to-square'></i></button>
+            <button class='delete-btn btn btn-sm' data-id='{$row['id']}'><i class='fa-solid fa-delete-left'></i></button>
+        </td>
         </tr>";
+
         $i++;
     }
 } else {
     $output .= "<tr><td colspan='7'>No Record Found</td></tr>";
 }
+
 $output .= '</tbody></table>';
 echo $output;

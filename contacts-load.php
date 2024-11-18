@@ -118,26 +118,38 @@ $result_status = mysqli_query($con, $sql_status);
         });
     });
 
-    // Function to fetch filtered data
-    function filterData() {
-        var type = $('#type').val();
-        var sub_type = $('#sub_type').val();
-        $.ajax({
-            url: 'contacts-fetch-table.php',
-            type: 'POST',
-            data: {
-                type: type,
-                sub_type: sub_type
-            },
-            success: function(response) {
-                $('#contactsTableContainer').html(response); // Display the table data
-                $('#contactsTable').DataTable(); // Initialize DataTable after inserting the table
+// Function to fetch filtered data
+function filterData() {
+    var type = $('#type').val();
+    var sub_type = $('#sub_type').val();
+    $.ajax({
+        url: 'contacts-fetch-table.php',
+        type: 'POST',
+        data: {
+            type: type,
+            sub_type: sub_type
+        },
+        success: function(response) {
+            $('#contactsTableContainer').html(response); // Load table data
+            
+            // Initialize or reinitialize DataTable
+            if ($.fn.DataTable.isDataTable('#contactsTable')) {
+                $('#contactsTable').DataTable().destroy();
             }
-        });
-    }
-    $(document).ready(function() {
-        filterData(); // Load initial data with DataTable applied
+            $('#contactsTable').DataTable(); // Reinitialize DataTable
+        }
     });
+}
+
+// Attach filter change events
+$(document).ready(function () {
+    filterData(); // Load initial data
+
+    $('#type, #sub_type').change(function () {
+        filterData(); // Re-fetch data on filter change
+    });
+});
+
 
     
 </script>

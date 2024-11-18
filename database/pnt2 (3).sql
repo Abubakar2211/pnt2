@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Nov 17, 2024 at 06:54 AM
+-- Generation Time: Nov 18, 2024 at 09:20 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -175,7 +175,9 @@ CREATE TABLE `contacts` (
 --
 
 INSERT INTO `contacts` (`id`, `type`, `sub_type`, `first_name`, `last_name`, `designation`, `email_id`, `cell_number`, `phone_number`, `company_name`, `category`, `sub_category`, `website`, `country`, `city`, `D_O_B`, `religion`, `facebook`, `status`) VALUES
-(1, 'Team', 'aaaa', 'Abubakar', 'Baig', 'dsfasdfassssssssssssssssss', 'abubakar192005@gmail.com', '0312-2082355', '03122082355', 'fddddddddddd', 'Abubakar', 'Software engineer', 'aa', 'Pakistan', 'Karachi', '2024-11-16', 'aaa', 'adfadfasdfadsfadsfasdd', 'Abubakar');
+(14, 'Supplier', '', 'Abubakar', 'Baig', '', 'abubakar192005@gmail.com', '', '03122082355', '', '', '', '', 'Pakistan', 'Karachi', '0000-00-00', '', '', 'Pending'),
+(15, 'Supplier', '', 'Sajid', 'Baig', '', 'sajid@gmail.com', '', '03122082355', '', '', '', '', '', '', '0000-00-00', '', '', 'Pending'),
+(16, 'Contact', '', 'hammad', 'Baig', '', 'hammad@gmail.com', '', '03122082355', '', '', '', '', '', '', '0000-00-00', '', '', 'Pending');
 
 -- --------------------------------------------------------
 
@@ -194,8 +196,9 @@ CREATE TABLE `contacts_status` (
 --
 
 INSERT INTO `contacts_status` (`id`, `status`, `applied`) VALUES
-(1, 'Abubakar', 'Applied'),
-(2, 'Sajid', 'Unapplied');
+(3, 'Active', 'Applied'),
+(5, 'Pending', 'Unapplied'),
+(6, 'Deliver', 'Unapplied');
 
 -- --------------------------------------------------------
 
@@ -295,13 +298,6 @@ CREATE TABLE `sub_types` (
   `type_id` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
---
--- Dumping data for table `sub_types`
---
-
-INSERT INTO `sub_types` (`id`, `sub_type`, `type_id`) VALUES
-(2, 'aaaa', 1);
-
 -- --------------------------------------------------------
 
 --
@@ -366,7 +362,6 @@ CREATE TABLE `types` (
 --
 
 INSERT INTO `types` (`id`, `type`) VALUES
-(1, ''),
 (3, 'Team'),
 (4, 'Supplier'),
 (5, 'Contact');
@@ -403,15 +398,13 @@ ALTER TABLE `clients`
 -- Indexes for table `contacts`
 --
 ALTER TABLE `contacts`
-  ADD PRIMARY KEY (`id`),
-  ADD KEY `status` (`status`);
+  ADD PRIMARY KEY (`id`);
 
 --
 -- Indexes for table `contacts_status`
 --
 ALTER TABLE `contacts_status`
-  ADD PRIMARY KEY (`id`),
-  ADD UNIQUE KEY `status` (`status`);
+  ADD PRIMARY KEY (`id`);
 
 --
 -- Indexes for table `country`
@@ -489,13 +482,13 @@ ALTER TABLE `city`
 -- AUTO_INCREMENT for table `contacts`
 --
 ALTER TABLE `contacts`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
 
 --
 -- AUTO_INCREMENT for table `contacts_status`
 --
 ALTER TABLE `contacts_status`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT for table `country`
@@ -530,12 +523,6 @@ ALTER TABLE `types`
 --
 -- Constraints for dumped tables
 --
-
---
--- Constraints for table `contacts`
---
-ALTER TABLE `contacts`
-  ADD CONSTRAINT `contacts_ibfk_1` FOREIGN KEY (`status`) REFERENCES `contacts_status` (`status`) ON UPDATE CASCADE;
 
 --
 -- Constraints for table `sub_category`
