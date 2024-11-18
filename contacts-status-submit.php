@@ -1,36 +1,25 @@
 <?php
 include 'db.php';
 
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    $selectedStatus = mysqli_real_escape_string($con, $_POST['applied_status']);
-    
-    // Reset all statuses to 'Unapplied' in contacts_status
+if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+    $contactId = mysqli_real_escape_string($con, $_POST['id']);
+    $status = mysqli_real_escape_string($con, $_POST['status']);
+
+    // Reset all statuses to 'Unapplied'
     $resetQuery = "UPDATE contacts_status SET applied = 'Unapplied'";
     mysqli_query($con, $resetQuery);
 
-    // Set the selected status to 'Applied'
-    $applyQuery = "UPDATE contacts_status SET applied = 'Applied' WHERE status = '$selectedStatus'";
-    if (mysqli_query($con, $applyQuery)) {
-        // Fetch the status value from contacts_status where applied = 'Applied'
-        $fetchStatusQuery = "SELECT status FROM contacts_status WHERE applied = 'Applied' LIMIT 1";
-        $result = mysqli_query($con, $fetchStatusQuery);
+    // Update the selected contact's status
+    $updateQuery = "UPDATE contacts SET status = '{$status}' WHERE id = '{$contactId}'";
 
-        if ($result && mysqli_num_rows($result) > 0) {
-            $row = mysqli_fetch_assoc($result);
-            $appliedStatus = $row['status'];
+    if (mysqli_query($con, $updateQuery)) {
+        // Set the selected status as 'Applied'
+        $applyQuery = "UPDATE contacts_status SET applied = 'Applied' WHERE status = '{$status}'";
+        mysqli_query($con, $applyQuery);
 
-            // Update the status in the contacts table with the fetched applied status
-            $updateContactsQuery = "UPDATE contacts SET status = '$appliedStatus'";
-            if (mysqli_query($con, $updateContactsQuery)) {
-                echo "Status updated successfully in contacts table.";
-            } else {
-                echo "Error updating contacts table: " . mysqli_error($con);
-            }
-        } else {
-            echo "Error: Applied status not found in contacts_status.";
-        }
+        echo 1; // Success
     } else {
-        echo "Error updating contacts_status: " . mysqli_error($con);
+        echo 0; // Failure
     }
 }
 ?>

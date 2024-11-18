@@ -149,10 +149,24 @@ if (mysqli_num_rows($query) > 0) {
     }
 
     $output .= "</select></div>
-                <div class='mb-3 col-md-6'>
+            <div class='mb-3 col-md-6'>
                     <label for='facebook' class='form-label'>Facebook:</label>
                     <input type='text' class='form-control' id='facebook' placeholder='Enter facebook' value='{$row['facebook']}' name='facebook'>
                 </div>
+                <div class='mb-3 col-md-6'>
+                    <label for='status' class='form-label'>Status:</label>
+                    <select name='status' class='form-control' id='status'>
+                        <option value=''>Choose status</option>";
+
+    // Fetch statuss
+    $sql_status = "SELECT * FROM contacts_status";
+    $result_status = mysqli_query($con, $sql_status) or die("SQL Query Failed: " . mysqli_error($con));
+    while ($row_status = mysqli_fetch_assoc($result_status)) {
+        $selected = ($row_status['status'] == $row['status']) ? "selected" : "";
+        $output .= "<option value='" . $row_status['status'] . "' $selected>" . $row_status['status'] . "</option>";
+    }
+
+    $output .= "</select></div> 
 
                 </div>
                 </div>
@@ -161,7 +175,5 @@ if (mysqli_num_rows($query) > 0) {
                     <button type='button' class='btn btn-secondary' data-bs-dismiss='modal'>Close</button>
                 </div>
                 </form>";
-
 }
 echo $output;
-?>

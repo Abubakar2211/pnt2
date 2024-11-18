@@ -30,7 +30,7 @@ include 'db.php';
                     $sql_type = "SELECT * FROM types";
                     $result_type = mysqli_query($con, $sql_type);
                     ?>
-                    <label for="types" class="form-label">Type:</label>
+                    <label for="types" class="form-label">Type:*</label>
                     <select name="types" class="form-control" id="types">
                         <option value="">Choose a country</option>
                         <?php
@@ -56,7 +56,7 @@ include 'db.php';
                     </select>
                 </div>
                 <div class="mb-3 col-md-4 ">
-                    <label for="first_name" class="form-label">First Name:</label>
+                    <label for="first_name" class="form-label">First Name:*</label>
                     <input type="text" class="form-control" id="first_name" placeholder="Enter first name"
                         name="first_name">
                 </div>
@@ -71,7 +71,7 @@ include 'db.php';
                         name="designation">
                 </div>
                 <div class="mb-3 col-md-4 ">
-                    <label for="email_id" class="form-label">Email:</label>
+                    <label for="email_id" class="form-label">Email:*</label>
                     <input type="email" class="form-control" id="email_id" placeholder="Enter email" name="email_id">
                 </div>
                 <div class="mb-3 col-md-4 ">
@@ -240,53 +240,66 @@ include 'db.php';
             });
         }
         loadTable();
+        $(document).ready(function() {
+            $('#contact-submit').on("click", function(e) {
+                e.preventDefault();
 
-        $('#contact-submit').on("click", function(e) {
-            e.preventDefault();
-            var types = $("#types").val();
-            var sub_types = $("#sub_types").val();
-            var first_name = $("#first_name").val();
-            var last_name = $("#last_name").val();
-            var designation = $("#designation").val();
-            var email_id = $("#email_id").val();
-            var cell_number = $("#cell_number").val();
-            var phone_number = $("#phone_number").val();
-            var company_name = $("#company_name").val();
-            var category = $("#category").val();
-            var sub_category = $("#sub_category").val();
-            var website = $("#website").val();
-            var country_field = $("#country-field").val(); // Fixed variable name
-            var city = $("#city").val();
-            var D_O_B = $("#D_O_B").val();
-            var religion = $("#religion").val();
-            var facebook = $("#facebook").val();
+                // Collect form values
+                var types = $("#types").val();
+                var sub_types = $("#sub_types").val();
+                var first_name = $("#first_name").val();
+                var last_name = $("#last_name").val();
+                var designation = $("#designation").val();
+                var email_id = $("#email_id").val();
+                var cell_number = $("#cell_number").val();
+                var phone_number = $("#phone_number").val();
+                var company_name = $("#company_name").val();
+                var category = $("#category").val();
+                var sub_category = $("#sub_category").val();
+                var website = $("#website").val();
+                var country_field = $("#country").val();
+                var city = $("#city").val();
+                var D_O_B = $("#D_O_B").val();
+                var religion = $("#religion").val();
+                var facebook = $("#facebook").val();
 
-            // Basic Validation
-            if (types === "" || sub_types === "" || first_name === "" || last_name === "" || designation === "" || email_id === "" || cell_number === "" || phone_number === "" || company_name === "" || category === "" || sub_category === "" ||
-                website === "" || country_field === "" || city === "" || D_O_B === "" || religion === "" || facebook === "") {
-                $('#response').fadeIn();
-                $('#response').removeClass('alert alert-primary').addClass('alert alert-danger').html('All fields are required');
-            } else {
+                if (!first_name || !email_id || !types) {
+                    $('#response').fadeIn();
+                    $('#response')
+                        .removeClass('alert alert-primary')
+                        .addClass('alert alert-danger')
+                        .html('First Name, Email, and Type are required!');
+                    return;
+                }
+
                 $.ajax({
                     url: "contacts-insert.php",
                     type: "POST",
                     data: $('#contact-form').serialize(),
                     success: function(data) {
                         $('#contact-form')[0].reset();
-                        loadTable();
+                        loadTable(); // Reload the table if necessary
                         $('#response').fadeIn();
-                        $('#response').removeClass('alert alert-danger').addClass('alert alert-primary').html(data);
+                        $('#response')
+                            .removeClass('alert alert-danger')
+                            .addClass('alert alert-primary')
+                            .html(data);
                         setTimeout(function() {
                             $('#response').fadeOut("slow");
                         }, 4000);
                     },
                     error: function(xhr, status, error) {
+                        console.error("XHR Error: ", xhr.responseText);
                         $('#response').fadeIn();
-                        $('#response').removeClass('alert alert-primary').addClass('alert alert-danger').html('Error occurred, try again!');
+                        $('#response')
+                            .removeClass('alert alert-primary')
+                            .addClass('alert alert-danger')
+                            .html('Error occurred while submitting. Please try again.');
                     }
                 });
-            }
+            });
         });
+
 
         $(document).on("click", ".delete-btn", function() {
             if (confirm("Do you really want to delete this record")) {
@@ -368,6 +381,28 @@ include 'db.php';
         // Trigger when filters are applied
         $('#type, #sub_type').on('change', function() {
             loadFilteredData(); // Re-fetch filtered data when filters change
+        });
+    });
+    $(document).on('change', '.status-dropdown', function() {
+        var status = $(this).val(); 
+        var contactId = $(this).data('id'); 
+
+        $.ajax({
+            url: 'contacts-update.php',
+            type: 'POST',
+            data: {
+                id: contactId,
+                status: status
+            },
+            success: function(response) {
+                if (response == 0) {
+                    alert('Failed to update status. Please try again.');
+                }
+            },
+            error: function(xhr, status, error) {
+                console.error('Error: ', xhr.responseText);
+                alert('An error occurred while updating status.');
+            }
         });
     });
 </script>

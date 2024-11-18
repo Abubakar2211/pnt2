@@ -21,6 +21,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $D_O_B = mysqli_real_escape_string($con, $_POST['D_O_B']);
     $religion = mysqli_real_escape_string($con, $_POST['religion']);
     $facebook = mysqli_real_escape_string($con, $_POST['facebook']);
+    $status = mysqli_real_escape_string($con, $_POST['status']);
 
     // SQL query to update contact information
     $sql = "UPDATE contacts SET 
@@ -40,7 +41,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         city = '{$city}', 
         D_O_B = '{$D_O_B}', 
         religion = '{$religion}',
-        facebook = '{$facebook}'
+        facebook = '{$facebook}',
+        status = '{$status}'
         WHERE id = '{$contactId}'";
 
     // Execute the query and check for success or failure

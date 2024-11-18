@@ -16,7 +16,7 @@ include 'db.php';
 
     <!-- Form 1: Adding a New Status -->
     <div class="row">
-        <div class="form-container mb-3 col-6">
+        <div class="form-container mb-3">
             <form action="" id="add-status-form" method="post" enctype="multipart/form-data" class="p-3 border rounded">
                 <div class="row">
                     <div class="mb-3">
@@ -26,29 +26,6 @@ include 'db.php';
                 </div>
                 <button type="submit" id="add-status-submit" class="btn btn-primary">Submit</button>
             </form>
-        </div>
-
-        <!-- Form 2: Selecting an Applied Status -->
-        <div class="form-container mb-3 col-6">
-            <form action="" id="select-status-form" method="post" enctype="multipart/form-data" class="p-3 border rounded">
-                <div class="row">
-                    <div class="mb-3">
-                        <label for="applied_status" class="form-label">Enter Applied Status:</label>
-                        <select name="applied_status" class="form-control" id="applied_status">
-                            <option value="" disabled selected>Choose Your Status</option>
-                            <?php
-                            $sql_status = "SELECT * FROM contacts_status";
-                            $result = mysqli_query($con, $sql_status);
-                            while ($status_data = mysqli_fetch_assoc($result)) {
-                                echo '<option value="' . $status_data['status'] . '">' . $status_data['status'] . '</option>';
-                            }
-                            ?>
-                        </select>
-                    </div>
-                </div>
-                <button type="submit" id="select-status-submit" class="btn btn-primary">Submit</button>
-            </form>
-
         </div>
     </div>
 
