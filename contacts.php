@@ -385,26 +385,21 @@ include 'db.php';
         loadFilteredData(); // Re-fetch data on filter change
     });
 
-    // Handle status change
-    $(document).on('change', '.status-dropdown', function () {
+});
+$(document).on('change', '.status-dropdown', function () {
     var status = $(this).val(); // Selected status
     var contactId = $(this).data('id'); // Contact ID from dropdown
-    var dropdown = $(this); // Reference to the dropdown
 
     $.ajax({
-        url: 'contacts-update.php', // Backend file for updating status
+        url: 'contacts-update-status.php', // Backend file to handle status update
         type: 'POST',
         data: {
             id: contactId,
             status: status
         },
         success: function (response) {
-            if (response == 1) {
-                alert("Status updated successfully!");
-                // Optionally, you can change the background color of the row to indicate success
-                dropdown.closest('tr').css('background-color', '#d4edda'); // Light green for success
-            } else {
-                alert("Failed to update status. Please try again.");
+            if (response == 0) {
+                alert("Failed to update status.");
             }
         },
         error: function () {
@@ -412,7 +407,43 @@ include 'db.php';
         }
     });
 });
+$(document).on("click", "#bulk-update-btn", function() {
+    var selectedIds = [];
+    $(".record-checkbox:checked").each(function() {
+        selectedIds.push($(this).val());
+    });
 
+    var status = $("#bulk-status-dropdown").val();
+
+    if (selectedIds.length === 0) {
+        alert("Please select at least one record.");
+        return;
+    }
+
+    if (!status) {
+        alert("Please select a status.");
+        return;
+    }
+
+    $.ajax({
+        url: 'bulk-update-status.php',
+        type: 'POST',
+        data: {
+            ids: selectedIds,
+            status: status
+        },
+        success: function(response) {
+            if (response == 1) {
+                filterData(); // Reload the table
+            } else {
+                alert("Failed to update status.");
+            }
+        },
+        error: function() {
+            alert("An error occurred while updating status.");
+        }
+    });
 });
+
 
 </script>

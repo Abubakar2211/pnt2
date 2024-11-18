@@ -1,69 +1,54 @@
 <?php
 include "db.php";
-$sql = "SELECT * FROM contacts";
-$result = mysqli_query($con, $sql) or die("Query Failed");
 
-$output = "";
+$sql_type = "SELECT * FROM types";
+$result_type = mysqli_query($con, $sql_type);
 
-if (mysqli_num_rows($result) > 0) {
-    $output = "
-    <!-- Form 2: Selecting an Applied Status -->
-    <div class='form-container mb-3 '>
-        <form action='' id='select-status-form' method='post' enctype='multipart/form-data' class='p-3 border rounded'>
-            <div class='row'>
-                <div class='mb-3'>
-                    <label for='applied_status' class='form-label'>Applied Status:</label>
-                    <select name='applied_status' class='form-control' id='applied_status'>
-                        <option value='' disabled selected>Choose Your Status</option>";
-        
-    // Add options dynamically from the database
-    $sql_status = 'SELECT * FROM contacts_status';
-    $result = mysqli_query($con, $sql_status);
-    while ($status_data = mysqli_fetch_assoc($result)) {
-        $output .= "<option value='" . $status_data['status'] . "'>" . $status_data['status'] . "</option>";
-    }
+$sql_sub_types = "SELECT * FROM sub_types";
+$result_sub_types = mysqli_query($con, $sql_sub_types);
 
-    $output .= "
-                    </select>
-                </div>
-            </div>
-            <button type='submit' id='select-status-submit' class='btn btn-primary'>Submit</button>
-        </form>
-    </div>";
-
-    $output .= "<div class='row'>
-                    <div class='mb-3 col-md-6'>
-                        <label for='type' class='form-label'>Type:</label>
-                        <select name='type' class='form-control' id='type' onchange='filterData()'>
-                            <option value=''>Choose a type</option>";
-
-    // Fetch types
-    $sql_type = "SELECT * FROM types";
-    $result_type = mysqli_query($con, $sql_type) or die("SQL Query Failed: " . mysqli_error($con));
-    while ($row_type = mysqli_fetch_assoc($result_type)) {
-        $output .= "<option value='" . $row_type['type'] . "'>" . $row_type['type'] . "</option>";
-    }
-
-    $output .= "</select></div>
-                <div class='mb-3 col-md-6'>
-                    <label for='sub_type' class='form-label'>Sub type:</label>
-                    <select name='sub_type' class='form-control' id='sub_type' onchange='filterData()'>
-                        <option value=''>Choose a sub type</option>";
-
-    // Fetch cities
-    $sql_sub_types = "SELECT * FROM sub_types";
-    $result_sub_types = mysqli_query($con, $sql_sub_types) or die("SQL Query Failed: " . mysqli_error($con));
-    while ($row_sub_types = mysqli_fetch_assoc($result_sub_types)) {
-        $output .= "<option value='" . $row_sub_types['sub_type'] . "'>" . $row_sub_types['sub_type'] . "</option>";
-    }
-
-    $output .= "</select></div></div>";
-    $output .= '<div class="table-responsive" id="contactsTableContainer"></div>'; // Placeholder for the table
-    echo $output;
-} else {
-    echo "<h2>No Record Found</h2>";
-}
+$sql_status = "SELECT * FROM contacts_status";
+$result_status = mysqli_query($con, $sql_status);
 ?>
+
+<!-- Bulk Status Update -->
+<div class="bulk-status-update mb-3">
+    <select id="bulk-status-dropdown" class="form-control d-inline w-auto">
+        <option value="" disabled selected>Choose Status</option>
+        <?php while ($row = mysqli_fetch_assoc($result_status)) : ?>
+            <option value="<?= htmlspecialchars($row['status']) ?>"><?= htmlspecialchars($row['status']) ?></option>
+        <?php endwhile; ?>
+    </select>
+    <button id="bulk-update-btn" class="btn btn-primary">Update Selected</button>
+</div>
+
+<!-- Dropdown Filters -->
+<div class="row">
+    <div class="mb-3 col-md-6">
+        <label for="type" class="form-label">Type:</label>
+        <select name="type" class="form-control" id="type">
+            <option value="">Choose a type</option>
+            <?php while ($row = mysqli_fetch_assoc($result_type)) : ?>
+                <option value="<?= $row['type'] ?>"><?= $row['type'] ?></option>
+            <?php endwhile; ?>
+        </select>
+    </div>
+    <div class="mb-3 col-md-6">
+        <label for="sub_type" class="form-label">Sub Type:</label>
+        <select name="sub_type" class="form-control" id="sub_type">
+            <option value="">Choose a sub type</option>
+            <?php while ($row = mysqli_fetch_assoc($result_sub_types)) : ?>
+                <option value="<?= $row['sub_type'] ?>"><?= $row['sub_type'] ?></option>
+            <?php endwhile; ?>
+        </select>
+    </div>
+</div>
+
+<!-- Table Placeholder -->
+<div class="table-responsive" id="contactsTableContainer">
+    <!-- Table data will be loaded here via AJAX -->
+</div>
+
 <div class="modal fade" id="update-modal" tabindex="-1" aria-labelledby="update-modal" aria-hidden="true">
     <div class="modal-dialog modal-xl">
         <div class="modal-content">
@@ -153,6 +138,8 @@ if (mysqli_num_rows($result) > 0) {
     $(document).ready(function() {
         filterData(); // Load initial data with DataTable applied
     });
+
+    
 </script>
 <?php
 include("footer.php");

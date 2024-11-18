@@ -23,15 +23,6 @@
         $facebook = mysqli_real_escape_string($con, $_POST['facebook']);
         $status = mysqli_real_escape_string($con, $_POST['status']);
 
-        $updateQuery = "UPDATE contacts SET status = '$status' WHERE id = '$contactId'";
-
-        if (mysqli_query($con, $updateQuery)) {
-            echo 1; // Success
-        } else {
-            echo 0; // Failure
-        }
-
-        // SQL query to update contact information
         $sql = "UPDATE contacts SET 
             type = '{$type}', 
             sub_type = '{$sub_type}', 
@@ -53,7 +44,6 @@
             status = '{$status}'
             WHERE id = '{$contactId}'";
 
-        // Execute the query and check for success or failure
         if (mysqli_query($con, $sql)) {
             echo 1;  // Success
         } else {

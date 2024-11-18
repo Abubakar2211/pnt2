@@ -33,7 +33,7 @@ if (mysqli_num_rows($result) > 0) {
     $i = 1;
     while ($row = mysqli_fetch_assoc($result)) {
         $output .= "<tr>
-            <td><input type='checkbox' id='vehicle1' name='vehicle1' value='Bike' class='mx-3'></td>
+            <td><input type='checkbox' class='record-checkbox' value='" . $row['id'] . "'></td>
             <td>{$i}</td>
             <td>" . htmlspecialchars($row['first_name']) . "</td>
             <td>" . htmlspecialchars($row['cell_number']) . "</td>
@@ -41,7 +41,6 @@ if (mysqli_num_rows($result) > 0) {
         $output .= "<td>
             <select name='status' class='status-dropdown form-control' data-id='{$row['id']}'>";
 
-        // Fetch statuses from `contacts_status` table
         $status_query = "SELECT * FROM contacts_status";
         $status_result = mysqli_query($con, $status_query);
 
