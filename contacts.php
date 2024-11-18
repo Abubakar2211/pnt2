@@ -302,7 +302,6 @@ include 'db.php';
 
 
         $(document).on("click", ".delete-btn", function() {
-            if (confirm("Do you really want to delete this record")) {
                 var contactId = $(this).data('id');
                 var element = this;
                 $.ajax({
@@ -321,7 +320,6 @@ include 'db.php';
                         }
                     }
                 })
-            }
         });
         $(document).on("click", ".edit-btn", function() {
             var contactId = $(this).data("eid");
@@ -363,46 +361,58 @@ include 'db.php';
         });
 
     });
-    $(document).ready(function() {
-        function loadFilteredData() {
-            $.ajax({
-                url: 'contacts-fetch-table.php', // Updated backend script
-                type: 'POST',
-                success: function(response) {
-                    $('#contactsTableContainer').html(response); // Display the filtered table
-                    $('#contactsTable').DataTable(); // Reinitialize DataTable after inserting the table
-                }
-            });
-        }
-
-        // Call the function on page load
-        loadFilteredData();
-
-        // Trigger when filters are applied
-        $('#type, #sub_type').on('change', function() {
-            loadFilteredData(); // Re-fetch filtered data when filters change
-        });
-    });
-    $(document).on('change', '.status-dropdown', function() {
-        var status = $(this).val(); 
-        var contactId = $(this).data('id'); 
-
+    $(document).ready(function () {
+    // Function to load filtered data
+    function loadFilteredData() {
         $.ajax({
-            url: 'contacts-update.php',
+            url: 'contacts-fetch-table.php', // Fetch table data
             type: 'POST',
-            data: {
-                id: contactId,
-                status: status
+            success: function (response) {
+                $('#contactsTableContainer').html(response); // Update the table container
+                $('#contactsTable').DataTable(); // Reinitialize DataTable
             },
-            success: function(response) {
-                if (response == 0) {
-                    alert('Failed to update status. Please try again.');
-                }
-            },
-            error: function(xhr, status, error) {
-                console.error('Error: ', xhr.responseText);
-                alert('An error occurred while updating status.');
+            error: function () {
+                alert("Failed to load data. Please try again.");
             }
         });
+    }
+
+    // Load data on page load
+    loadFilteredData();
+
+    // Trigger when filters are applied
+    $('#type, #sub_type').on('change', function () {
+        loadFilteredData(); // Re-fetch data on filter change
     });
+
+    // Handle status change
+    $(document).on('change', '.status-dropdown', function () {
+    var status = $(this).val(); // Selected status
+    var contactId = $(this).data('id'); // Contact ID from dropdown
+    var dropdown = $(this); // Reference to the dropdown
+
+    $.ajax({
+        url: 'contacts-update.php', // Backend file for updating status
+        type: 'POST',
+        data: {
+            id: contactId,
+            status: status
+        },
+        success: function (response) {
+            if (response == 1) {
+                alert("Status updated successfully!");
+                // Optionally, you can change the background color of the row to indicate success
+                dropdown.closest('tr').css('background-color', '#d4edda'); // Light green for success
+            } else {
+                alert("Failed to update status. Please try again.");
+            }
+        },
+        error: function () {
+            alert("An error occurred while updating status.");
+        }
+    });
+});
+
+});
+
 </script>

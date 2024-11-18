@@ -38,13 +38,13 @@ if (mysqli_num_rows($result) > 0) {
             <td>" . htmlspecialchars($row['first_name']) . "</td>
             <td>" . htmlspecialchars($row['cell_number']) . "</td>
             <td>" . htmlspecialchars($row['email_id']) . "</td>";
-            $output .= "<td>
+        $output .= "<td>
             <select name='status' class='status-dropdown form-control' data-id='{$row['id']}'>";
-            
+
         // Fetch statuses from `contacts_status` table
         $status_query = "SELECT * FROM contacts_status";
         $status_result = mysqli_query($con, $status_query);
-        
+
         if (mysqli_num_rows($status_result) > 0) {
             while ($status_row = mysqli_fetch_assoc($status_result)) {
                 $selected = $row['status'] == $status_row['status'] ? 'selected' : '';
@@ -53,10 +53,11 @@ if (mysqli_num_rows($result) > 0) {
         } else {
             $output .= "<option value=''>No Status Found</option>";
         }
-        
+
         $output .= "</select>
         </td>";
-        
+
+
 
         $output .= "
             <td class='d-flex justify-content-around'>
@@ -71,4 +72,3 @@ if (mysqli_num_rows($result) > 0) {
 }
 $output .= '</tbody></table>';
 echo $output;
-?>
