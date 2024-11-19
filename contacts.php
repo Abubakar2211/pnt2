@@ -27,34 +27,27 @@ include 'db.php';
             <div class="row">
                 <div class="mb-6 col-md-6 mb-4">
                     <?php
-                    $sql_type = "SELECT * FROM types";
+                    $sql_type = "SELECT * FROM types"; // Types fetch karna
                     $result_type = mysqli_query($con, $sql_type);
                     ?>
                     <label for="types" class="form-label">Type:*</label>
                     <select name="types" class="form-control" id="types">
-                        <option value="">Choose a country</option>
+                        <option value="">Choose a type</option>
                         <?php
                         while ($row_type = mysqli_fetch_assoc($result_type)) {
-                            echo '<option value="' . $row_type['type'] . '">' . $row_type['type'] . '</option>';
+                            echo '<option value="' . $row_type['id'] . '">' . $row_type['type'] . '</option>';
                         }
                         ?>
                     </select>
                 </div>
+
                 <div class="mb-6 col-md-6 mb-4">
-                    <?php
-                    $sql_type = "SELECT * FROM sub_types";
-                    $result_type = mysqli_query($con, $sql_type);
-                    ?>
                     <label for="sub_types" class="form-label">Sub types:</label>
                     <select name="sub_types" class="form-control" id="sub_types">
-                        <option value="">Choose a country</option>
-                        <?php
-                        while ($row_type = mysqli_fetch_assoc($result_type)) {
-                            echo '<option value="' . $row_type['sub_type'] . '">' . $row_type['sub_type'] . '</option>';
-                        }
-                        ?>
+                        <option value="">Choose a sub type</option>
                     </select>
                 </div>
+
                 <div class="mb-3 col-md-4 ">
                     <label for="first_name" class="form-label">First Name:*</label>
                     <input type="text" class="form-control" id="first_name" placeholder="Enter first name"
@@ -302,24 +295,24 @@ include 'db.php';
 
 
         $(document).on("click", ".delete-btn", function() {
-                var contactId = $(this).data('id');
-                var element = this;
-                $.ajax({
-                    url: "contacts-delete.php",
-                    type: "POST",
-                    data: {
-                        id: contactId
-                    },
-                    success: function(data) {
-                        if (data == 1) {
-                            $(element).closest("tr").fadeOut();
-                            loadTable();
-                        } else {
-                            $("#error_message").html("Can't Delete Record .").slideDown();
-                            $("#success_message").slideUp();
-                        }
+            var contactId = $(this).data('id');
+            var element = this;
+            $.ajax({
+                url: "contacts-delete.php",
+                type: "POST",
+                data: {
+                    id: contactId
+                },
+                success: function(data) {
+                    if (data == 1) {
+                        $(element).closest("tr").fadeOut();
+                        loadTable();
+                    } else {
+                        $("#error_message").html("Can't Delete Record .").slideDown();
+                        $("#success_message").slideUp();
                     }
-                })
+                }
+            })
         });
         $(document).on("click", ".edit-btn", function() {
             var contactId = $(this).data("eid");
@@ -361,89 +354,117 @@ include 'db.php';
         });
 
     });
-    $(document).ready(function () {
-    // Function to load filtered data
-    function loadFilteredData() {
+    $(document).ready(function() {
+        // Function to load filtered data
+        function loadFilteredData() {
+            $.ajax({
+                url: 'contacts-fetch-table.php', // Fetch table data
+                type: 'POST',
+                success: function(response) {
+                    $('#contactsTableContainer').html(response); // Update the table container
+                    $('#contactsTable').DataTable(); // Reinitialize DataTable
+                },
+                error: function() {
+                    alert("Failed to load data. Please try again.");
+                }
+            });
+        }
+
+        // Load data on page load
+        loadFilteredData();
+
+        // Trigger when filters are applied
+        $('#type, #sub_type').on('change', function() {
+            loadFilteredData(); // Re-fetch data on filter change
+        });
+
+    });
+    $(document).on('change', '.status-dropdown', function() {
+        var status = $(this).val(); // Selected status
+        var contactId = $(this).data('id'); // Contact ID from dropdown
+
         $.ajax({
-            url: 'contacts-fetch-table.php', // Fetch table data
+            url: 'contacts-update-status.php', // Backend file to handle status update
             type: 'POST',
-            success: function (response) {
-                $('#contactsTableContainer').html(response); // Update the table container
-                $('#contactsTable').DataTable(); // Reinitialize DataTable
+            data: {
+                id: contactId,
+                status: status
             },
-            error: function () {
-                alert("Failed to load data. Please try again.");
+            success: function(response) {
+                if (response == 0) {
+                    alert("Failed to update status.");
+                }
+            },
+            error: function() {
+                alert("An error occurred while updating status.");
             }
         });
-    }
-
-    // Load data on page load
-    loadFilteredData();
-
-    // Trigger when filters are applied
-    $('#type, #sub_type').on('change', function () {
-        loadFilteredData(); // Re-fetch data on filter change
     });
+    $(document).on("click", "#bulk-update-btn", function() {
+        var selectedIds = [];
+        $(".record-checkbox:checked").each(function() {
+            selectedIds.push($(this).val());
+        });
 
-});
-$(document).on('change', '.status-dropdown', function () {
-    var status = $(this).val(); // Selected status
-    var contactId = $(this).data('id'); // Contact ID from dropdown
+        var status = $("#bulk-status-dropdown").val();
 
-    $.ajax({
-        url: 'contacts-update-status.php', // Backend file to handle status update
-        type: 'POST',
-        data: {
-            id: contactId,
-            status: status
-        },
-        success: function (response) {
-            if (response == 0) {
-                alert("Failed to update status.");
-            }
-        },
-        error: function () {
-            alert("An error occurred while updating status.");
+        if (selectedIds.length === 0) {
+            alert("Please select at least one record.");
+            return;
         }
+
+        if (!status) {
+            alert("Please select a status.");
+            return;
+        }
+
+        $.ajax({
+            url: 'bulk-update-status.php',
+            type: 'POST',
+            data: {
+                ids: selectedIds,
+                status: status
+            },
+            success: function(response) {
+                if (response == 1) {
+                    filterData(); // Reload the table
+                } else {
+                    alert("Failed to update status.");
+                }
+            },
+            error: function() {
+                alert("An error occurred while updating status.");
+            }
+        });
     });
-});
-$(document).on("click", "#bulk-update-btn", function() {
-    var selectedIds = [];
-    $(".record-checkbox:checked").each(function() {
-        selectedIds.push($(this).val());
-    });
 
-    var status = $("#bulk-status-dropdown").val();
 
-    if (selectedIds.length === 0) {
-        alert("Please select at least one record.");
-        return;
-    }
+    $(document).ready(function () {
+        $('#types').change(function () {
+            var typeId = $(this).val(); // Get selected type ID
 
-    if (!status) {
-        alert("Please select a status.");
-        return;
-    }
+            $('#sub_types').html('<option value="">Loading...</option>'); // Show loading message
 
-    $.ajax({
-        url: 'bulk-update-status.php',
-        type: 'POST',
-        data: {
-            ids: selectedIds,
-            status: status
-        },
-        success: function(response) {
-            if (response == 1) {
-                filterData(); // Reload the table
+            if (typeId) {
+                $.ajax({
+                    url: 'get_sub_types.php', // PHP script for fetching sub types
+                    method: 'POST',
+                    data: { type_id: typeId }, // Send type ID to server
+                    dataType: 'json',
+                    success: function (response) {
+                        var options = '<option value="">Choose a sub type</option>';
+                        $.each(response, function (index, subType) {
+                            options += '<option value="' + subType + '">' + subType + '</option>';
+                        });
+                        $('#sub_types').html(options); // Update sub types dropdown
+                    },
+                    error: function () {
+                        alert('Failed to fetch sub types.');
+                    }
+                });
             } else {
-                alert("Failed to update status.");
+                $('#sub_types').html('<option value="">Choose a sub type</option>'); // Default state
             }
-        },
-        error: function() {
-            alert("An error occurred while updating status.");
-        }
+        });
     });
-});
-
-
 </script>
