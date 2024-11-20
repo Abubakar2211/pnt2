@@ -29,7 +29,7 @@ $result_status = mysqli_query($con, $sql_status);
         <select name="type" class="form-control" id="type">
             <option value="">Choose a type</option>
             <?php while ($row = mysqli_fetch_assoc($result_type)) : ?>
-                <option value="<?= $row['type'] ?>"><?= $row['type'] ?></option>
+                <option value="<?= $row['id'] ?>"><?= $row['type'] ?></option>
             <?php endwhile; ?>
         </select>
     </div>
@@ -37,13 +37,10 @@ $result_status = mysqli_query($con, $sql_status);
         <label for="sub_type" class="form-label">Sub Type:</label>
         <select name="sub_type" class="form-control" id="sub_type">
             <option value="">Choose a sub type</option>
-            <?php while ($row = mysqli_fetch_assoc($result_sub_types)) : ?>
-                <option value="<?= $row['sub_type'] ?>"><?= $row['sub_type'] ?></option>
-            <?php endwhile; ?>
+            <!-- Subtype options will be loaded dynamically -->
         </select>
     </div>
 </div>
-
 <!-- Table Placeholder -->
 <div class="table-responsive" id="contactsTableContainer">
     <!-- Table data will be loaded here via AJAX -->
@@ -150,7 +147,85 @@ $(document).ready(function () {
     });
 });
 
+// Function to fetch filtered data
+function filterData() {
+    var type = $('#type').val();
+    var sub_type = $('#sub_type').val();
+    
+    $.ajax({
+        url: 'contacts-fetch-table.php',
+        type: 'POST',
+        data: {
+            type: type,
+            sub_type: sub_type
+        },
+        success: function(response) {
+            $('#contactsTableContainer').html(response); // Load table data
+            
+            // Initialize or reinitialize DataTable
+            if ($.fn.DataTable.isDataTable('#contactsTable')) {
+                $('#contactsTable').DataTable().destroy();
+            }
+            $('#contactsTable').DataTable(); // Reinitialize DataTable
+        }
+    });
+}
 
+// Trigger the filterData function when filters are applied
+$(document).ready(function() {
+    $('#type, #sub_type').change(function() {
+        filterData(); // Fetch and load table data based on the selected filters
+    });
+});
+$('#type').change(function() {
+        var typeId = $(this).val();  // Get selected type
+
+        if (typeId) {
+            $.ajax({
+                url: 'get-subtypes.php',  // Endpoint to get subtypes
+                type: 'POST',
+                data: { type_id: typeId },  // Send selected type_id
+                success: function(response) {
+                    // Populate the sub_type dropdown with new options
+                    $('#sub_type').html(response);
+                }
+            });
+        } else {
+            // If no type is selected, reset the sub_type dropdown
+            $('#sub_type').html('<option value="">Choose a sub type</option>');
+        }
+    });
+
+    // Filter contacts based on selected type and sub_type
+    function filterData() {
+        var type = $('#type').val();
+        var sub_type = $('#sub_type').val();
+
+        $.ajax({
+            url: 'contacts-fetch-table.php',
+            type: 'POST',
+            data: {
+                type: type,
+                sub_type: sub_type
+            },
+            success: function(response) {
+                $('#contactsTableContainer').html(response); // Load table data
+
+                // Initialize or reinitialize DataTable
+                if ($.fn.DataTable.isDataTable('#contactsTable')) {
+                    $('#contactsTable').DataTable().destroy();
+                }
+                $('#contactsTable').DataTable(); // Reinitialize DataTable
+            }
+        });
+    }
+
+    // Trigger the filterData function when filters are applied
+    $(document).ready(function() {
+        $('#type, #sub_type').change(function() {
+            filterData(); // Fetch and load table data based on the selected filters
+        });
+    });
     
 </script>
 <?php
