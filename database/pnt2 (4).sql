@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Nov 18, 2024 at 09:20 PM
+-- Generation Time: Nov 20, 2024 at 09:51 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -70,7 +70,18 @@ INSERT INTO `add_contacts` (`id`, `firstName`, `lastName`, `cell`, `landline`, `
 (19, 'Benjamin Moore', '', 0, 0, '', 'Active', '', '202.771.5315x387', 'Jackson, Stewart and Wright', '(587)717-7568x32944', 'Yes', '', ''),
 (20, 'Christina Diaz', '', 0, 0, '', 'Active', '', '001-731-632-0188x9916', 'Burke, Singh and Conway', '923.127.3164x94848', 'Yes', '', ''),
 (21, 'Kimberly Cook', '', 0, 0, '', 'Active', '', '970.701.9750x78836', 'Noble, Hall and Fuller', '(382)115-4406', 'Yes', '', ''),
-(22, 'James Moore', '', 1, 0, '', 'Active', '', '740.730.9838x39088', 'Young-Carroll', '128-168-5940x419', 'Yes', '', '');
+(22, 'James Moore', '', 1, 0, '', 'Active', '', '740.730.9838x39088', 'Young-Carroll', '128-168-5940x419', 'Yes', '', ''),
+(23, 'Name', 'Email', 0, 0, '', 'Sell Phone', 'Client Status', '', 'Client Boardcast', NULL, 'Joining', 'Company Name', ''),
+(24, 'Cheryl Lin', 'johnstondouglas@gmail.com', 0, 0, '', '+1-485-032-6738x1196', 'Active', '', 'Yes', NULL, '12/07/2021', 'Lane, Butler and Elliott', ''),
+(25, 'Rebecca Adams', 'qmartinez@sosa-lindsey.com', 0, 0, '', '001-630-891-4387x632', 'Active', '', 'Yes', NULL, '12/03/2022', 'Brooks and Sons', ''),
+(26, 'James Gonzales', 'matthew49@yahoo.com', 0, 0, '', '728.153.1309', 'Active', '', 'Yes', NULL, '24/05/2022', 'Garcia, Larson and Glenn', ''),
+(27, 'Brenda Reed', 'amorton@henderson.biz', 0, 0, '', '024-949-1234x7749', 'Active', '', 'Yes', NULL, '30/09/2021', 'Hanson PLC', ''),
+(28, 'Darrell Valdez', 'nicholasturner@gonzalez.com', 0, 0, '', '679-922-5031x29199', 'Active', '', 'Yes', NULL, '16/11/2021', 'Scott and Sons', ''),
+(29, 'Brian Smith', 'angelawaller@gmail.com', 0, 0, '', '(324)975-4127', 'Active', '', 'Yes', NULL, '06/10/2020', 'Payne Group', ''),
+(30, 'Benjamin Moore', 'carsondale@kidd.com', 0, 0, '', '202.771.5315x387', 'Active', '', 'Yes', NULL, '08/09/2024', 'Jackson, Stewart and Wright', ''),
+(31, 'Christina Diaz', 'jamespowell@clark-gonzalez.com', 0, 0, '', '001-731-632-0188x9916', 'Active', '', 'Yes', NULL, '19/03/2024', 'Burke, Singh and Conway', ''),
+(32, 'Kimberly Cook', 'scottgeorge@cannon-pierce.com', 0, 0, '', '970.701.9750x78836', 'Active', '', 'Yes', NULL, '05/03/2021', 'Noble, Hall and Fuller', ''),
+(33, 'James Moore', 'kimberlydiaz@yahoo.com', 0, 0, '', '740.730.9838x39088', 'Active', '', 'Yes', NULL, '04/01/2022', 'Young-Carroll', '');
 
 -- --------------------------------------------------------
 
@@ -175,9 +186,17 @@ CREATE TABLE `contacts` (
 --
 
 INSERT INTO `contacts` (`id`, `type`, `sub_type`, `first_name`, `last_name`, `designation`, `email_id`, `cell_number`, `phone_number`, `company_name`, `category`, `sub_category`, `website`, `country`, `city`, `D_O_B`, `religion`, `facebook`, `status`) VALUES
-(14, 'Supplier', '', 'Abubakar', 'Baig', '', 'abubakar192005@gmail.com', '', '03122082355', '', '', '', '', 'Pakistan', 'Karachi', '0000-00-00', '', '', 'Pending'),
+(14, 'Supplier', 'Mobile Phones Supplier', 'Abubakar', 'Baig', '', 'abubakar192005@gmail.com', '', '03122082355', '', '', '', '', 'Pakistan', 'Karachi', '0000-00-00', '', '', 'Pending'),
 (15, 'Supplier', '', 'Sajid', 'Baig', '', 'sajid@gmail.com', '', '03122082355', '', '', '', '', '', '', '0000-00-00', '', '', 'Pending'),
-(16, 'Contact', '', 'hammad', 'Baig', '', 'hammad@gmail.com', '', '03122082355', '', '', '', '', '', '', '0000-00-00', '', '', 'Pending');
+(17, 'Supplier', 'Mobile Phones Supplier', 'Abubakar', 'Baig', '', 'abubakar192005@gmail.com', '', '03122082355', '', '', '', '', '', '', '0000-00-00', '', '', 'Active'),
+(18, '3', 'imran', 'Abubakar', 'baig', '', 'Abubakar192005@gamil.com', '', '03122082355', 'Abubakar', '', '', '', '', '', '0000-00-00', '', '', 'Active'),
+(19, '3', 'imran', 'Abubakar', 'baig', '', 'Abubakar192005@gamil.com', '', '03122082355', 'Abubakar', '', '', '', '', '', '0000-00-00', '', '', 'Active'),
+(20, '4', '', 'Abubakar', 'baig', '', 'Abubakar192005@gamil.com', '', '03122082355', 'Abubakar', '', '', '', '', '', '0000-00-00', '', '', 'Active'),
+(21, '4', 'Mobile Phones Supplier', 'Abubakar', 'baig', '', 'Abubakar192005@gamil.com', '', '03122082355', 'Abubakar', '', '', '', '', '', '0000-00-00', '', '', 'Active'),
+(22, '4', 'Home Appliances Supplier', 'Abubakar', 'baig', '', 'Abubakar192005@gamil.com', '', '03122082355', 'Abubakar', '', '', '', '', '', '0000-00-00', '', '', 'Active'),
+(23, '4', 'Home Appliances Supplier', 'Abubakar', 'baig', '', 'Abubakar192005@gamil.com', '', '03122082355', 'Abubakar', '', '', '', '', '', '0000-00-00', '', '', 'Active'),
+(24, '4', 'Computer Hardware Supplier', 'Abubakar', 'baig', '', 'Abubakar192005@gamil.com', '', '03122082355', 'Abubakar', '', '', '', '', '', '0000-00-00', '', '', 'Active'),
+(25, '4', 'Computer Hardware Supplier', 'Abubakar', 'baig', '', 'Abubakar192005@gamil.com', '', '03122082355', 'Abubakar', '', '', '', '', '', '0000-00-00', '', '', 'Active');
 
 -- --------------------------------------------------------
 
@@ -297,6 +316,16 @@ CREATE TABLE `sub_types` (
   `sub_type` varchar(255) NOT NULL,
   `type_id` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `sub_types`
+--
+
+INSERT INTO `sub_types` (`id`, `sub_type`, `type_id`) VALUES
+(3, 'Mobile Phones Supplier', 4),
+(4, 'Computer Hardware Supplier', 4),
+(5, 'Home Appliances Supplier', 4),
+(6, 'imran', 3);
 
 -- --------------------------------------------------------
 
@@ -464,7 +493,7 @@ ALTER TABLE `types`
 -- AUTO_INCREMENT for table `add_contacts`
 --
 ALTER TABLE `add_contacts`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=23;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=34;
 
 --
 -- AUTO_INCREMENT for table `category`
@@ -482,7 +511,7 @@ ALTER TABLE `city`
 -- AUTO_INCREMENT for table `contacts`
 --
 ALTER TABLE `contacts`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=26;
 
 --
 -- AUTO_INCREMENT for table `contacts_status`
@@ -512,7 +541,7 @@ ALTER TABLE `sub_category`
 -- AUTO_INCREMENT for table `sub_types`
 --
 ALTER TABLE `sub_types`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT for table `types`
