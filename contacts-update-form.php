@@ -21,12 +21,12 @@ if (mysqli_num_rows($query) > 0) {
                                 <select name='type' class='form-control' id='type'>
                                     <option value=''>Choose a type</option>";
 
-    // Fetch types
+    // Fetch types 
     $sql_type = "SELECT * FROM types";
     $result_type = mysqli_query($con, $sql_type) or die("SQL Query Failed: " . mysqli_error($con));
     while ($row_type = mysqli_fetch_assoc($result_type)) {
-        $selected = ($row_type['type'] == $row['type']) ? "selected" : "";
-        $output .= "<option value='" . $row_type['type'] . "' $selected>" . $row_type['type'] . "</option>";
+        $selected = ($row_type['id'] == $row['type']) ? "selected" : "";
+        $output .= "<option value='" . $row_type['id'] . "' $selected>" . $row_type['type'] . "</option>";
     }
 
     $output .= "</select></div>
@@ -39,8 +39,8 @@ if (mysqli_num_rows($query) > 0) {
     $sql_sub_type = "SELECT * FROM sub_types";
     $result_sub_type = mysqli_query($con, $sql_sub_type) or die("SQL Query Failed: " . mysqli_error($con));
     while ($row_sub_type = mysqli_fetch_assoc($result_sub_type)) {
-        $selected = ($row_sub_type['sub_type'] == $row['sub_type']) ? "selected" : "";
-        $output .= "<option value='" . $row_sub_type['sub_type'] . "' $selected>" . $row_sub_type['sub_type'] . "</option>";
+        $selected = ($row_sub_type['id'] == $row['sub_type']) ? "selected" : "";
+        $output .= "<option value='" . $row_sub_type['id'] . "' $selected>" . $row_sub_type['sub_type'] . "</option>";
     }
 
     $output .= "</select></div>

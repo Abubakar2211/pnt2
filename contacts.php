@@ -399,7 +399,7 @@ include 'db.php';
     });
 
 
-    // This is use my Multiple status change 
+    // This is use my Multiple status change  akhri kam kahan tak howa tha
 
     $(document).on("click", "#bulk-update-btn", function() {
         var selectedIds = [];
@@ -457,8 +457,12 @@ include 'db.php';
                     dataType: 'json',
                     success: function(response) {
                         var options = '<option value="">Choose a sub type</option>';
-                        $.each(response, function(index, subType) {
-                            options += '<option value="' + subType + '">' + subType + '</option>';
+                        // console.log(response)
+                        $.each(response, function(index, obj) {
+                            options += `<option value='${obj.id}'>${obj.sub_type}</option>`;
+                            // console.log(index)
+                            // console.log(obj.id)
+                            // console.log(obj['id'])
                         });
                         $('#sub_types').html(options);
                     },

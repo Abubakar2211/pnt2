@@ -37,7 +37,7 @@ $result_status = mysqli_query($con, $sql_status);
         <label for="sub_type" class="form-label">Sub Type:</label>
         <select name="sub_type" class="form-control" id="sub_type">
             <option value="">Choose a sub type</option>
-            <!-- Subtype options will be loaded dynamically -->
+            <!-- Subtype options will be loaded dynamically  sub type a kahan se-->
         </select>
     </div>
 </div>
@@ -122,7 +122,7 @@ $(document).on("click", "#save_button", function() {
 
 
 
-// This hides my two tables.
+// This hides my two tables. 
 
 $(document).ready(function() {
     filterData();
@@ -153,28 +153,6 @@ function filterData() {
         }
     });
 }
-
-$('#sub_type').change(function() {
-    var type = $('#type').val();
-    var sub_type = $('#sub_type').val();
-
-    $.ajax({
-        url: 'get_data_with_type_&_subtype.php',
-        type: 'POST',
-        data: {
-            type: type,
-            sub_type: sub_type
-        },
-        success: function(response) {
-            $('#contactsTableContainer').html(response);
-
-            if ($.fn.DataTable.isDataTable('#contactsTable')) {
-                $('#contactsTable').DataTable().destroy();
-            }
-            $('#contactsTable').DataTable();
-        }
-    });
-});
 
 
 

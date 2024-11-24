@@ -5,7 +5,7 @@ if (isset($_POST['type_id'])) {
     $type_id = $_POST['type_id'];
 
     // Sub types fetch karne ke liye SQL query
-    $sql = "SELECT sub_type FROM sub_types WHERE type_id = ?";
+    $sql = "SELECT * FROM sub_types WHERE type_id = ?";
     $stmt = $con->prepare($sql);
 
     if (!$stmt) {
@@ -18,7 +18,10 @@ if (isset($_POST['type_id'])) {
 
     $sub_types = [];
     while ($row = $result->fetch_assoc()) {
-        $sub_types[] = $row['sub_type'];
+        $sub_types[] = [
+            'id' => $row['id'], 
+            'sub_type' => $row['sub_type']
+        ]; 
     }
 
     // JSON response
