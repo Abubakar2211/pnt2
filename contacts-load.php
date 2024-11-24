@@ -16,7 +16,7 @@ $result_status = mysqli_query($con, $sql_status);
     <select id="bulk-status-dropdown" class="form-control d-inline w-auto">
         <option value="" disabled selected>Choose Status</option>
         <?php while ($row = mysqli_fetch_assoc($result_status)) : ?>
-            <option value="<?= htmlspecialchars($row['status']) ?>"><?= htmlspecialchars($row['status']) ?></option>
+        <option value="<?= htmlspecialchars($row['status']) ?>"><?= htmlspecialchars($row['status']) ?></option>
         <?php endwhile; ?>
     </select>
     <button id="bulk-update-btn" class="btn btn-primary">Update Selected</button>
@@ -29,7 +29,7 @@ $result_status = mysqli_query($con, $sql_status);
         <select name="type" class="form-control" id="type">
             <option value="">Choose a type</option>
             <?php while ($row = mysqli_fetch_assoc($result_type)) : ?>
-                <option value="<?= $row['id'] ?>"><?= $row['type'] ?></option>
+            <option value="<?= $row['id'] ?>"><?= $row['type'] ?></option>
             <?php endwhile; ?>
         </select>
     </div>
@@ -55,103 +55,87 @@ $result_status = mysqli_query($con, $sql_status);
 </div>
 <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
 <script>
-    $(document).on("click", ".delete-btn", function() {
-        if (confirm("Do you really want to delete this record")) {
-            var contactId = $(this).data('id');
-            var element = this;
-            $.ajax({
-                url: "contacts-delete.php",
-                type: "POST",
-                data: {
-                    id: contactId
-                },
-                success: function(data) {
-                    if (data == 1) {
-                        $(element).closest("tr").fadeOut();
-                        loadTable();
-                    } else {
-                        $("#error_message").html("Can't Delete Record .").slideDown();
-                        $("#success_message").slideUp();
-                    }
-                }
-            })
-        }
-    });
-    $(document).on("click", ".edit-btn", function() {
-        var contactId = $(this).data("eid");
-
-        $("#update-modal .modal-content").html("");
-        $("#update-modal").modal('show');
-
+$(document).on("click", ".delete-btn", function() {
+    if (confirm("Do you really want to delete this record")) {
+        var contactId = $(this).data('id');
+        var element = this;
         $.ajax({
-            url: "contacts-update-form.php",
+            url: "contacts-delete.php",
             type: "POST",
             data: {
                 id: contactId
             },
             success: function(data) {
-                $("#update-modal .modal-content").html(data);
-            },
-
-        });
-    });
-
-    $(document).on("click", "#save_button", function() {
-        var formData = $('#update-form').serialize();
-
-        $.ajax({
-            url: "contacts-update.php",
-            type: "POST",
-            data: formData,
-            success: function(data) {
                 if (data == 1) {
-                    $("#update-modal").modal('hide');
+                    $(element).closest("tr").fadeOut();
                     loadTable();
                 } else {
-                    alert("Error updating type data: " + data);
+                    $("#error_message").html("Can't Delete Record .").slideDown();
+                    $("#success_message").slideUp();
                 }
-            },
-
-        });
-    });
-
-// Function to fetch filtered data
-function filterData() {
-    var type = $('#type').val();
-    var sub_type = $('#sub_type').val();
-    $.ajax({
-        url: 'contacts-fetch-table.php',
-        type: 'POST',
-        data: {
-            type: type,
-            sub_type: sub_type
-        },
-        success: function(response) {
-            $('#contactsTableContainer').html(response); // Load table data
-            
-            // Initialize or reinitialize DataTable
-            if ($.fn.DataTable.isDataTable('#contactsTable')) {
-                $('#contactsTable').DataTable().destroy();
             }
-            $('#contactsTable').DataTable(); // Reinitialize DataTable
-        }
-    });
-}
+        })
+    }
+});
+$(document).on("click", ".edit-btn", function() {
+    var contactId = $(this).data("eid");
 
-// Attach filter change events
-$(document).ready(function () {
-    filterData(); // Load initial data
+    $("#update-modal .modal-content").html("");
+    $("#update-modal").modal('show');
 
-    $('#type, #sub_type').change(function () {
-        filterData(); // Re-fetch data on filter change
+    $.ajax({
+        url: "contacts-update-form.php",
+        type: "POST",
+        data: {
+            id: contactId
+        },
+        success: function(data) {
+            $("#update-modal .modal-content").html(data);
+        },
+
     });
 });
 
-// Function to fetch filtered data
+$(document).on("click", "#save_button", function() {
+    var formData = $('#update-form').serialize();
+
+    $.ajax({
+        url: "contacts-update.php",
+        type: "POST",
+        data: formData,
+        success: function(data) {
+            if (data == 1) {
+                $("#update-modal").modal('hide');
+                loadTable();
+            } else {
+                alert("Error updating type data: " + data);
+            }
+        },
+
+    });
+});
+
+
+
+
+
+
+
+
+// This hides my two tables.
+
+$(document).ready(function() {
+    filterData();
+
+    $('#type, #sub_type').change(function() {
+        filterData();
+    });
+});
+
 function filterData() {
     var type = $('#type').val();
     var sub_type = $('#sub_type').val();
-    
+
     $.ajax({
         url: 'contacts-fetch-table.php',
         type: 'POST',
@@ -160,73 +144,70 @@ function filterData() {
             sub_type: sub_type
         },
         success: function(response) {
-            $('#contactsTableContainer').html(response); // Load table data
-            
-            // Initialize or reinitialize DataTable
+            $('#contactsTableContainer').html(response);
+
             if ($.fn.DataTable.isDataTable('#contactsTable')) {
                 $('#contactsTable').DataTable().destroy();
             }
-            $('#contactsTable').DataTable(); // Reinitialize DataTable
+            $('#contactsTable').DataTable();
         }
     });
 }
 
-// Trigger the filterData function when filters are applied
+$('#sub_type').change(function() {
+    var type = $('#type').val();
+    var sub_type = $('#sub_type').val();
+
+    $.ajax({
+        url: 'get_data_with_type_&_subtype.php',
+        type: 'POST',
+        data: {
+            type: type,
+            sub_type: sub_type
+        },
+        success: function(response) {
+            $('#contactsTableContainer').html(response);
+
+            if ($.fn.DataTable.isDataTable('#contactsTable')) {
+                $('#contactsTable').DataTable().destroy();
+            }
+            $('#contactsTable').DataTable();
+        }
+    });
+});
+
+
+
+
+
+
+
+
+//It is checking my type and matching it to bring any subtype related to the type I have selected.
+
 $(document).ready(function() {
     $('#type, #sub_type').change(function() {
-        filterData(); // Fetch and load table data based on the selected filters
+        filterData();
     });
 });
 $('#type').change(function() {
-        var typeId = $(this).val();  // Get selected type
-
-        if (typeId) {
-            $.ajax({
-                url: 'get-subtypes.php',  // Endpoint to get subtypes
-                type: 'POST',
-                data: { type_id: typeId },  // Send selected type_id
-                success: function(response) {
-                    // Populate the sub_type dropdown with new options
-                    $('#sub_type').html(response);
-                }
-            });
-        } else {
-            // If no type is selected, reset the sub_type dropdown
-            $('#sub_type').html('<option value="">Choose a sub type</option>');
-        }
-    });
-
-    // Filter contacts based on selected type and sub_type
-    function filterData() {
-        var type = $('#type').val();
-        var sub_type = $('#sub_type').val();
-
+    var typeId = $(this).val();
+    if (typeId) {
         $.ajax({
-            url: 'contacts-fetch-table.php',
+            url: 'get-subtypes.php',
             type: 'POST',
             data: {
-                type: type,
-                sub_type: sub_type
-            },
+                type_id: typeId
+            }, // Send selected type_id
             success: function(response) {
-                $('#contactsTableContainer').html(response); // Load table data
 
-                // Initialize or reinitialize DataTable
-                if ($.fn.DataTable.isDataTable('#contactsTable')) {
-                    $('#contactsTable').DataTable().destroy();
-                }
-                $('#contactsTable').DataTable(); // Reinitialize DataTable
+                $('#sub_type').html(response);
             }
         });
+    } else {
+        $('#sub_type').html('<option value="">Choose a sub type</option>');
     }
-
-    // Trigger the filterData function when filters are applied
-    $(document).ready(function() {
-        $('#type, #sub_type').change(function() {
-            filterData(); // Fetch and load table data based on the selected filters
-        });
-    });
-    
+});
 </script>
 <?php
 include("footer.php");

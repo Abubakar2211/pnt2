@@ -11,11 +11,22 @@ if (empty($csvData) || empty($mapping)) {
     exit;
 }
 
-$tableName = $formType === 'client' ? 'clients' : 'add_contacts'; // Choose the correct table based on form type
+// Determine the main table based on form type
+if ($formType === 'client') {
+    $tableName = 'clients';
+} elseif ($formType === 'add_contact') {
+    $tableName = 'add_contacts';
+} else {
+    $tableName = 'contacts'; // Default to `contacts` table
+}
 
 foreach ($csvData as $index => $row) {
+    // Skip the first row (index 0)
+    if ($index === 0) {
+        continue;
+    }
+
     $insertData = [];
-    
     foreach ($mapping as $csvIndex => $dbField) {
         if (!empty($dbField) && isset($row[$csvIndex])) {
             $value = trim($row[$csvIndex]);
@@ -30,18 +41,18 @@ foreach ($csvData as $index => $row) {
     }
 
     // Enclose field names in backticks if needed
-    $columns = implode(", ", array_map(function($field) {
+    $columns = implode(", ", array_map(function ($field) {
         return '`' . $field . '`'; // Enclose in backticks
     }, array_keys($insertData)));
 
-    $values = implode(", ", array_map(function($value) {
+    $values = implode(", ", array_map(function ($value) {
         return "'" . $value . "'";
     }, array_values($insertData)));
 
+    // Insert into the determined table
     $query = "INSERT INTO $tableName ($columns) VALUES ($values)";
-    
     if (!mysqli_query($con, $query)) {
-        echo "Error inserting data: " . mysqli_error($con);
+        echo "Error inserting into $tableName: " . mysqli_error($con);
         exit;
     }
 }
@@ -51,7 +62,14 @@ session_unset();
 session_destroy(); // Destroy the session
 
 // Redirect based on form type
-$redirectUrl = $formType === 'client' ? 'clients.php' : 'add-contacts.php';
+if ($formType === 'client') {
+    $redirectUrl = 'clients.php';
+} elseif ($formType === 'add_contact') {
+    $redirectUrl = 'add-contacts.php';
+} else {
+    $redirectUrl = 'contacts.php';
+}
+
 header("Location: $redirectUrl");
 exit;
 

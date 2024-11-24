@@ -355,14 +355,13 @@ include 'db.php';
 
     });
     $(document).ready(function() {
-        // Function to load filtered data
         function loadFilteredData() {
             $.ajax({
-                url: 'contacts-fetch-table.php', // Fetch table data
+                url: 'contacts-fetch-table.php',
                 type: 'POST',
                 success: function(response) {
-                    $('#contactsTableContainer').html(response); // Update the table container
-                    $('#contactsTable').DataTable(); // Reinitialize DataTable
+                    $('#contactsTableContainer').html(response);
+                    $('#contactsTable').DataTable();
                 },
                 error: function() {
                     alert("Failed to load data. Please try again.");
@@ -370,21 +369,19 @@ include 'db.php';
             });
         }
 
-        // Load data on page load
         loadFilteredData();
 
-        // Trigger when filters are applied
         $('#type, #sub_type').on('change', function() {
-            loadFilteredData(); // Re-fetch data on filter change
+            loadFilteredData();
         });
 
     });
     $(document).on('change', '.status-dropdown', function() {
-        var status = $(this).val(); // Selected status
-        var contactId = $(this).data('id'); // Contact ID from dropdown
+        var status = $(this).val();
+        var contactId = $(this).data('id');
 
         $.ajax({
-            url: 'contacts-update-status.php', // Backend file to handle status update
+            url: 'contacts-update-status.php',
             type: 'POST',
             data: {
                 id: contactId,
@@ -400,6 +397,10 @@ include 'db.php';
             }
         });
     });
+
+
+    // This is use my Multiple status change 
+
     $(document).on("click", "#bulk-update-btn", function() {
         var selectedIds = [];
         $(".record-checkbox:checked").each(function() {
@@ -438,32 +439,35 @@ include 'db.php';
         });
     });
 
+    // This is basically used to filter my type and subtypes before inserting the data.
 
-    $(document).ready(function () {
-        $('#types').change(function () {
-            var typeId = $(this).val(); // Get selected type ID
+    $(document).ready(function() {
+        $('#types').change(function() {
+            var typeId = $(this).val();
 
-            $('#sub_types').html('<option value="">Loading...</option>'); // Show loading message
+            $('#sub_types').html('<option value="">Loading...</option>');
 
             if (typeId) {
                 $.ajax({
-                    url: 'get_sub_types.php', // PHP script for fetching sub types
+                    url: 'get_sub_types.php',
                     method: 'POST',
-                    data: { type_id: typeId }, // Send type ID to server
+                    data: {
+                        type_id: typeId
+                    },
                     dataType: 'json',
-                    success: function (response) {
+                    success: function(response) {
                         var options = '<option value="">Choose a sub type</option>';
-                        $.each(response, function (index, subType) {
+                        $.each(response, function(index, subType) {
                             options += '<option value="' + subType + '">' + subType + '</option>';
                         });
-                        $('#sub_types').html(options); // Update sub types dropdown
+                        $('#sub_types').html(options);
                     },
-                    error: function () {
+                    error: function() {
                         alert('Failed to fetch sub types.');
                     }
                 });
             } else {
-                $('#sub_types').html('<option value="">Choose a sub type</option>'); // Default state
+                $('#sub_types').html('<option value="">Choose a sub type</option>');
             }
         });
     });
