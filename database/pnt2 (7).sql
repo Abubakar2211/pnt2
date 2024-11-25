@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Nov 20, 2024 at 09:51 PM
+-- Generation Time: Nov 25, 2024 at 07:03 AM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -146,12 +146,7 @@ CREATE TABLE `clients` (
 --
 
 INSERT INTO `clients` (`id`, `name`, `email`, `contact`, `cellPhone`, `cellNumber`, `joining`, `companyName`, `clientStatus`, `clientBoardcast`, `date_time`) VALUES
-(16, 'Abubakar', 'Abubakar192005@gmail.com', '03122082355', '', '', '', '', '', '', '2024-11-06 11:19:52'),
-(17, 'Abubakar Baig', 'abubakar192005@gmail.com', '03122082355', '', '', '', '', '', '', '2024-11-06 11:19:52'),
-(18, 'Abubakar Baig', 'abubakar192005@gmail.com', '03122082355', '', '', '', '', '', '', '2024-11-06 11:19:52'),
-(20, 'Abubakar Baig', 'abubakar192005@gmail.com', '03122082355', '', '', '', '', '', '', '2024-11-06 11:19:52'),
-(22, 'Abubakar Baig', 'abubakar192005@gmail.com', '03122082355', '03122082355', '031220235', '2024-11-06', 'OG Technologies', 'active', 'active', '2024-11-06 11:20:13'),
-(23, 'Abubakar baig', 'Abubakar192005@gamil.com', '03122082355', '03122082355', '031128235', '2024-11-06', 'Abubakar', 'active', 'active', '2024-11-06 11:39:29');
+(0, 'Cheryl Lin', 'johnstondouglas@gmail.com', '529-907-6129x70422', '+1-485-032-6738x1196', '(698)797-8852x156', '12/07/2021', 'Lane, Butler and Elliott', 'Active', 'Yes', '2024-11-24 11:34:07');
 
 -- --------------------------------------------------------
 
@@ -186,17 +181,7 @@ CREATE TABLE `contacts` (
 --
 
 INSERT INTO `contacts` (`id`, `type`, `sub_type`, `first_name`, `last_name`, `designation`, `email_id`, `cell_number`, `phone_number`, `company_name`, `category`, `sub_category`, `website`, `country`, `city`, `D_O_B`, `religion`, `facebook`, `status`) VALUES
-(14, 'Supplier', 'Mobile Phones Supplier', 'Abubakar', 'Baig', '', 'abubakar192005@gmail.com', '', '03122082355', '', '', '', '', 'Pakistan', 'Karachi', '0000-00-00', '', '', 'Pending'),
-(15, 'Supplier', '', 'Sajid', 'Baig', '', 'sajid@gmail.com', '', '03122082355', '', '', '', '', '', '', '0000-00-00', '', '', 'Pending'),
-(17, 'Supplier', 'Mobile Phones Supplier', 'Abubakar', 'Baig', '', 'abubakar192005@gmail.com', '', '03122082355', '', '', '', '', '', '', '0000-00-00', '', '', 'Active'),
-(18, '3', 'imran', 'Abubakar', 'baig', '', 'Abubakar192005@gamil.com', '', '03122082355', 'Abubakar', '', '', '', '', '', '0000-00-00', '', '', 'Active'),
-(19, '3', 'imran', 'Abubakar', 'baig', '', 'Abubakar192005@gamil.com', '', '03122082355', 'Abubakar', '', '', '', '', '', '0000-00-00', '', '', 'Active'),
-(20, '4', '', 'Abubakar', 'baig', '', 'Abubakar192005@gamil.com', '', '03122082355', 'Abubakar', '', '', '', '', '', '0000-00-00', '', '', 'Active'),
-(21, '4', 'Mobile Phones Supplier', 'Abubakar', 'baig', '', 'Abubakar192005@gamil.com', '', '03122082355', 'Abubakar', '', '', '', '', '', '0000-00-00', '', '', 'Active'),
-(22, '4', 'Home Appliances Supplier', 'Abubakar', 'baig', '', 'Abubakar192005@gamil.com', '', '03122082355', 'Abubakar', '', '', '', '', '', '0000-00-00', '', '', 'Active'),
-(23, '4', 'Home Appliances Supplier', 'Abubakar', 'baig', '', 'Abubakar192005@gamil.com', '', '03122082355', 'Abubakar', '', '', '', '', '', '0000-00-00', '', '', 'Active'),
-(24, '4', 'Computer Hardware Supplier', 'Abubakar', 'baig', '', 'Abubakar192005@gamil.com', '', '03122082355', 'Abubakar', '', '', '', '', '', '0000-00-00', '', '', 'Active'),
-(25, '4', 'Computer Hardware Supplier', 'Abubakar', 'baig', '', 'Abubakar192005@gamil.com', '', '03122082355', 'Abubakar', '', '', '', '', '', '0000-00-00', '', '', 'Active');
+(1, '3', '6', 'Abubakar', 'Baig', '', 'abubakar192005@gmail.com', '', '03122082355', '', '', '', '', '', '', '0000-00-00', '', '', 'Active');
 
 -- --------------------------------------------------------
 
@@ -511,7 +496,7 @@ ALTER TABLE `city`
 -- AUTO_INCREMENT for table `contacts`
 --
 ALTER TABLE `contacts`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=26;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `contacts_status`
